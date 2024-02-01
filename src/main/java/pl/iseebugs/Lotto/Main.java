@@ -1,4 +1,4 @@
-package org.example;
+package pl.iseebugs.Lotto;
 
 public class Main {
     public static void main(String[] args) {
