@@ -1,0 +1,11 @@
+Wymagania lotto
+  - zakup losu
+    - cena: 3,50 PLN
+    - limit: 2 kupony
+  - powiększ los
+    - cena +2 PLN
+  - wybranie liczb
+    - ile liczb: 6
+    - powtórzenia: nie
+  - losowanie [kiedy? ile osób wygrywa?]
+  - odbiór nagrody [limit na odbiór, warunki]
