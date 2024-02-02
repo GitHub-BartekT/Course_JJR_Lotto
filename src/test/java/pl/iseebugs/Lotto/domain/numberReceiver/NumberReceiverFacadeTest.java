@@ -9,7 +9,11 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
 class NumberReceiverFacadeTest {
-    NumberReceiverFacade numberReceiverFacade = new NumberReceiverFacade();
+    NumberReceiverFacade numberReceiverFacade = new NumberReceiverFacade(
+            new NumberValidator(),
+            new InMemoryNumberReceiverRepositoryTestImpl() {
+            }
+    );
 
     @Test
     public void should_return_success_when_user_gave_six_numbers(){
