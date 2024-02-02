@@ -1,8 +1,8 @@
 package pl.iseebugs.Lotto.domain.numberReceiver;
 
 import lombok.AllArgsConstructor;
+import pl.iseebugs.Lotto.domain.numberReceiver.dto.InputNumberResultDto;
 
-import java.util.List;
 import java.util.Set;
 
 @AllArgsConstructor
@@ -14,10 +14,10 @@ public class NumberReceiverFacade {
         this.validator = new NumberValidator();
     }
 
-    public String inputNumbers(Set<Integer> numbersFromUser){
+    public InputNumberResultDto inputNumbers(Set<Integer> numbersFromUser){
         if (validator.filterAllNumbersInTheRange(numbersFromUser)){
-            return "success";
+            return new InputNumberResultDto("success");
         }
-        return "failed";
+        return new InputNumberResultDto("failed");
     }
 }
