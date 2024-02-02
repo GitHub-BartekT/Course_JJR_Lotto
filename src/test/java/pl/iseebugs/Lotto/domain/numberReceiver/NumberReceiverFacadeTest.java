@@ -2,7 +2,10 @@ package pl.iseebugs.Lotto.domain.numberReceiver;
 
 import org.junit.jupiter.api.Test;
 import pl.iseebugs.Lotto.domain.numberReceiver.dto.InputNumberResultDto;
+import pl.iseebugs.Lotto.domain.numberReceiver.dto.TicketDto;
 
+import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -63,5 +66,21 @@ class NumberReceiverFacadeTest {
         InputNumberResultDto result = numberReceiverFacade.inputNumbers(numbersFromUser);
         //then
         assertThat(result.message()).isEqualTo("failed");
+    }
+
+    @Test
+    public void should_return_save_to_database_when_user_gave_six_numbers(){
+        //given
+        Set<Integer> numbersFromUser = Set.of(1, 2, 3, 4, 5, 6);
+        InputNumberResultDto result = numberReceiverFacade.inputNumbers(numbersFromUser);
+        LocalDateTime drawDate = result.drawDate();
+        //when
+        List<TicketDto> ticketDtos = numberReceiverFacade.userNumbers(drawDate);
+        //then
+        assertThat(ticketDtos).contains(TicketDto.builder()
+                .ticketId(result.ticketId())
+                .drawDate(drawDate)
+                .numbersFromUser(result.numbersFromUser())
+                .build());
     }
 }
