@@ -14,12 +14,14 @@ import java.util.UUID;
 public class NumberReceiverFacade {
 
     private final NumberValidator validator;
-    private final NumberReceiverRepository repository;
+    private final TicketRepository repository;
     private final Clock clock;
 
     public InputNumberResultDto inputNumbers(Set<Integer> numbersFromUser){
         if (validator.filterAllNumbersInTheRange(numbersFromUser)){
+            //TODO: create class ticketId to generate and validate iD
             String ticketId = UUID.randomUUID().toString();
+            //TODO: generate draw time TO FIX
             LocalDateTime drawDate = LocalDateTime.now(clock);
             Ticket savedTicket = repository.save(new Ticket(ticketId, drawDate, numbersFromUser));
             return InputNumberResultDto.builder()

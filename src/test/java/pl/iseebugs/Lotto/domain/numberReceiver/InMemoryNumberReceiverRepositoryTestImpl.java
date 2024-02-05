@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-public class InMemoryNumberReceiverRepositoryTestImpl implements NumberReceiverRepository {
+public class InMemoryNumberReceiverRepositoryTestImpl implements TicketRepository {
     Map<String, Ticket> inMemoryDatabase = new ConcurrentHashMap<>();
 
     @Override
