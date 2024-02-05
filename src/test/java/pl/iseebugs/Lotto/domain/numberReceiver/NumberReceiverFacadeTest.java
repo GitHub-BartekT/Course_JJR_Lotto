@@ -4,18 +4,22 @@ import org.junit.jupiter.api.Test;
 import pl.iseebugs.Lotto.domain.numberReceiver.dto.InputNumberResultDto;
 import pl.iseebugs.Lotto.domain.numberReceiver.dto.TicketDto;
 
+import java.time.Clock;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZoneOffset;
 import java.util.List;
 import java.util.Set;
 
+import static java.time.ZoneOffset.UTC;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
 class NumberReceiverFacadeTest {
     NumberReceiverFacade numberReceiverFacade = new NumberReceiverFacade(
             new NumberValidator(),
-            new InMemoryNumberReceiverRepositoryTestImpl() {
-            }
+            new InMemoryNumberReceiverRepositoryTestImpl(),
+            Clock.fixed(LocalDateTime.of(2022, 12, 17,12,0,0).toInstant(UTC), ZoneId.systemDefault())
     );
 
     @Test
@@ -73,7 +77,7 @@ class NumberReceiverFacadeTest {
         //given
         Set<Integer> numbersFromUser = Set.of(1, 2, 3, 4, 5, 6);
         InputNumberResultDto result = numberReceiverFacade.inputNumbers(numbersFromUser);
-        LocalDateTime drawDate = result.drawDate();
+        LocalDateTime drawDate = LocalDateTime.of(2022, 12, 17,13,0,0);
         //when
         List<TicketDto> ticketDtos = numberReceiverFacade.userNumbers(drawDate);
         //then

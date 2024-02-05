@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import pl.iseebugs.Lotto.domain.numberReceiver.dto.InputNumberResultDto;
 import pl.iseebugs.Lotto.domain.numberReceiver.dto.TicketDto;
 
+import java.time.Clock;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
@@ -14,11 +15,12 @@ public class NumberReceiverFacade {
 
     private final NumberValidator validator;
     private final NumberReceiverRepository repository;
+    private final Clock clock;
 
     public InputNumberResultDto inputNumbers(Set<Integer> numbersFromUser){
         if (validator.filterAllNumbersInTheRange(numbersFromUser)){
             String ticketId = UUID.randomUUID().toString();
-            LocalDateTime drawDate = LocalDateTime.now();
+            LocalDateTime drawDate = LocalDateTime.now(clock);
             Ticket savedTicket = repository.save(new Ticket(ticketId, drawDate, numbersFromUser));
             return InputNumberResultDto.builder()
                     .drawDate(savedTicket.drawDate())
