@@ -3,6 +3,7 @@ package pl.iseebugs.Lotto.domain.numberReceiver;
 import org.junit.jupiter.api.Test;
 import pl.iseebugs.Lotto.domain.numberReceiver.dto.InputNumberResultDto;
 import pl.iseebugs.Lotto.domain.numberReceiver.dto.TicketDto;
+import pl.lotto.domain.AdjustableClock;
 
 import java.time.Clock;
 import java.time.LocalDateTime;
@@ -16,11 +17,14 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
 class NumberReceiverFacadeTest {
+
+    AdjustableClock clock = new AdjustableClock(LocalDateTime.of(2022, 12, 17, 12, 0, 0).toInstant(UTC), ZoneId.systemDefault());
+
     NumberReceiverFacade numberReceiverFacade = new NumberReceiverFacade(
-            new NumberValidator(),
-            new InMemoryNumberReceiverRepositoryTestImpl(),
-            Clock.fixed(LocalDateTime.of(2022, 12, 17,12,0,0).toInstant(UTC), ZoneId.systemDefault())
-    );
+                new NumberValidator(),
+                new InMemoryNumberReceiverRepositoryTestImpl(),
+                clock
+        );
 
     @Test
     public void should_return_success_when_user_gave_six_numbers(){
