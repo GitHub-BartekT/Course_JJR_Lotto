@@ -1,12 +1,13 @@
 package pl.iseebugs.Lotto.domain.numberReceiver;
 
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-public class InMemoryNumberReceiverRepositoryTestImpl implements TicketRepository {
-    Map<String, Ticket> inMemoryDatabase = new ConcurrentHashMap<>();
+public class InMemoryTicketRepositoryTestImpl implements TicketRepository {
+    Map<String, Ticket> inMemoryDatabase = new HashMap<>();
 
     @Override
     public Ticket save(Ticket ticket) {
