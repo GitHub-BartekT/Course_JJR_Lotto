@@ -5,6 +5,8 @@ import pl.iseebugs.Lotto.domain.numberReceiver.dto.InputNumberResultDto;
 import pl.iseebugs.Lotto.domain.numberReceiver.dto.TicketDto;
 import pl.lotto.domain.AdjustableClock;
 
+import java.time.Clock;
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.List;
@@ -15,7 +17,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 class NumberReceiverFacadeTest {
 
-    AdjustableClock clock = new AdjustableClock(LocalDateTime.of(2024, 2, 6, 12, 0, 0).toInstant(UTC), ZoneId.systemDefault());
+    // 2024.02.06 is Tuesday
+    AdjustableClock clock = new AdjustableClock(LocalDateTime.of(2024, 2, 6, 7, 23, 0).toInstant(UTC), ZoneId.systemDefault());
 
     NumberReceiverFacade numberReceiverFacade = new NumberReceiverFacade(
                 new NumberValidator(),
@@ -74,13 +77,57 @@ class NumberReceiverFacadeTest {
     }
 
     @Test
-    public void should_return_save_to_database_when_user_gave_six_numbers(){
+    public void should_return_correct_draw_date_when_ticket_date_is_not_saturday(){
         //given
         Set<Integer> numbersFromUser = Set.of(1, 2, 3, 4, 5, 6);
         InputNumberResultDto result = numberReceiverFacade.inputNumbers(numbersFromUser);
         LocalDateTime drawDate = LocalDateTime.of(2024, 2, 10,12,0,0);
         //when
-        LocalDateTime dateBeforeDrawDate = LocalDateTime.of(2024, 2, 5,12,0,0);
+        LocalDateTime dateBeforeDrawDate = LocalDateTime.of(2024, 2, 7,12,0,0);
+        List<TicketDto> ticketDtos = numberReceiverFacade.getTicketsByNextDrawDate(dateBeforeDrawDate);
+        //then
+
+        assertThat(ticketDtos).contains(TicketDto.builder()
+                .ticketId(result.ticketId())
+                .drawDate(drawDate)
+                .numbersFromUser(result.numbersFromUser())
+                .build());
+    }
+
+    @Test
+    public void should_return_correct_draw_date_when_date_is_saturday_before_noon(){
+        //given
+        Set<Integer> numbersFromUser = Set.of(1, 2, 3, 4, 5, 6);
+        clock.advanceInTimeBy(Duration.ofDays(4));
+        InputNumberResultDto result = numberReceiverFacade.inputNumbers(numbersFromUser);
+        LocalDateTime drawDate = LocalDateTime.of(2024, 2, 10,12,0,0);
+        //when
+        LocalDateTime dateBeforeDrawDate = LocalDateTime.of(2024, 2, 7,12,0,0);
+        List<TicketDto> ticketDtos = numberReceiverFacade.getTicketsByNextDrawDate(dateBeforeDrawDate);
+        //then
+
+        assertThat(ticketDtos).contains(TicketDto.builder()
+                .ticketId(result.ticketId())
+                .drawDate(drawDate)
+                .numbersFromUser(result.numbersFromUser())
+                .build());
+    }
+
+    @Test
+    public void should_return_correct_draw_date_when_date_is_saturday_after_noon(){
+        //given
+        Set<Integer> numbersFromUser = Set.of(1, 2, 3, 4, 5, 6);
+
+        clock.advanceInTimeBy(Duration.ofDays(4));
+        System.out.println(clock);
+        clock.advanceInTimeBy(Duration.ofHours(8));
+        System.out.println(clock);
+
+        InputNumberResultDto result = numberReceiverFacade.inputNumbers(numbersFromUser);
+        System.out.println(result.drawDate());
+        LocalDateTime drawDate = LocalDateTime.of(2024, 2, 17,12,0,0);
+        //when
+        LocalDateTime dateBeforeDrawDate = LocalDateTime.of(2024, 2, 13,12,0,0);
         List<TicketDto> ticketDtos = numberReceiverFacade.getTicketsByNextDrawDate(dateBeforeDrawDate);
         //then
 

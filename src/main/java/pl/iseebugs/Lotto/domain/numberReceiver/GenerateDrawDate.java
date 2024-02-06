@@ -12,13 +12,13 @@
         private static final Logger logger = LoggerFactory.getLogger(GenerateDrawDate.class);
         static LocalDateTime generateNextDrawDate (LocalDateTime buyingTicketTime){
             if(!isSaturday(buyingTicketTime)){
-                return goToNextSaturday(buyingTicketTime).withHour(12).withMinute(0).withSecond(0).withNano(0);
+                return goToNextSaturdayNoon(buyingTicketTime);
             }
 
             if(isBeforeNoon(buyingTicketTime)) {
                 return buyingTicketTime.withHour(12).withMinute(0).withSecond(0).withNano(0);
             } else {
-                return goToNextSaturday(buyingTicketTime.plusDays(1)).withHour(12).withMinute(0).withSecond(0).withNano(0);
+                return goToNextSaturdayNoon(buyingTicketTime.plusDays(1));
             }
         }
 
@@ -30,10 +30,10 @@
             return date.getDayOfWeek().equals(DayOfWeek.SATURDAY);
         }
 
-        private static LocalDateTime goToNextSaturday(LocalDateTime date){
+        private static LocalDateTime goToNextSaturdayNoon(LocalDateTime date){
             while (date.getDayOfWeek() != DayOfWeek.SATURDAY){
                 date = date.plusDays(1);
             }
-            return date;
+            return date.withHour(12).withMinute(0).withSecond(0).withNano(0);
         }
     }
