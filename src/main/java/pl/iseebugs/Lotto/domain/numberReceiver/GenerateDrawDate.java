@@ -1,15 +1,16 @@
     package pl.iseebugs.Lotto.domain.numberReceiver;
 
+    import lombok.AllArgsConstructor;
     import org.slf4j.Logger;
     import org.slf4j.LoggerFactory;
 
     import java.time.DayOfWeek;
     import java.time.LocalDateTime;
 
-
+    @AllArgsConstructor
     class GenerateDrawDate {
 
-        static LocalDateTime generateNextDrawDate (LocalDateTime buyingTicketTime){
+        LocalDateTime generateNextDrawDate (LocalDateTime buyingTicketTime){
             if(!isSaturday(buyingTicketTime)){
                 return goToNextSaturdayNoon(buyingTicketTime);
             }
