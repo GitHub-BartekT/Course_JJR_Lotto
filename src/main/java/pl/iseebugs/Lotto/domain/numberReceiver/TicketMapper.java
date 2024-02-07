@@ -2,7 +2,7 @@ package pl.iseebugs.Lotto.domain.numberReceiver;
 
 import pl.iseebugs.Lotto.domain.numberReceiver.dto.TicketDto;
 
-public class TicketMapper {
+class TicketMapper {
     static TicketDto toTicketDto(Ticket ticket) {
         return TicketDto.builder()
                 .numbersFromUser(ticket.numbersFromUser())
