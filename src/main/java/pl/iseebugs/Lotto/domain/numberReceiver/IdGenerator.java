@@ -1,17 +1,15 @@
 package pl.iseebugs.Lotto.domain.numberReceiver;
 
-import lombok.Getter;
-
 import java.util.UUID;
 
-class idGenerator {
+class IdGenerator implements IdGenerable{
     static String id;
 
-    idGenerator(){
+    IdGenerator(){
         id = UUID.randomUUID().toString();
     }
 
-    static String getRandomId() {
+    public String getRandomId() {
         return id;
     }
 }

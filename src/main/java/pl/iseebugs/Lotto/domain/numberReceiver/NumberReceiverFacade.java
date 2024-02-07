@@ -19,6 +19,7 @@ public class NumberReceiverFacade {
     private final NumberValidator validator;
     private final TicketRepository repository;
     private final Clock clock;
+    private final IdGenerable idGenerator;
 
     public InputNumberResultDto inputNumbers(Set<Integer> numbersFromUser) {
         if (validator.filterAllNumbersInTheRange(numbersFromUser)) {

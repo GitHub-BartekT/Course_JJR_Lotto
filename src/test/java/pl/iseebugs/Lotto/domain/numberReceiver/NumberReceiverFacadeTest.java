@@ -19,13 +19,15 @@ class NumberReceiverFacadeTest {
 
     // 2024.02.06 is Tuesday
     AdjustableClock clock = new AdjustableClock(LocalDateTime.of(2024, 2, 6, 7, 23, 0).toInstant(UTC), ZoneId.systemDefault());
+    IdGenerable generator = new IdGenerator();
 
     @Test
     public void should_return_success_when_user_gave_six_numbers(){
         //given
         Set<Integer> numbersFromUser = Set.of(1, 2, 3, 4, 5, 6);
         //system under test
-        NumberReceiverFacade toTest = NumberReceiverConfiguration.numberReceiverFacade(new NumberValidator(),
+        NumberReceiverFacade toTest = NumberReceiverConfiguration.numberReceiverFacade(
+                generator,
                 new InMemoryTicketRepositoryTestImpl(),
                 clock);
         //when
@@ -39,7 +41,8 @@ class NumberReceiverFacadeTest {
         //given
         Set<Integer> numbersFromUser = Set.of(1, -2, 99, 4, 5, 6);
         //system under test
-        NumberReceiverFacade toTest = NumberReceiverConfiguration.numberReceiverFacade(new NumberValidator(),
+        NumberReceiverFacade toTest = NumberReceiverConfiguration.numberReceiverFacade(
+                generator,
                 new InMemoryTicketRepositoryTestImpl(),
                 clock);
         //when
@@ -53,7 +56,8 @@ class NumberReceiverFacadeTest {
         //given
         Set<Integer> numbersFromUser = Set.of(1, 2, 100, 4, 5, 6);
         //system under test
-        NumberReceiverFacade toTest = NumberReceiverConfiguration.numberReceiverFacade(new NumberValidator(),
+        NumberReceiverFacade toTest = NumberReceiverConfiguration.numberReceiverFacade(
+                generator,
                 new InMemoryTicketRepositoryTestImpl(),
                 clock);
         //when
@@ -67,7 +71,8 @@ class NumberReceiverFacadeTest {
         //given
         Set<Integer> numbersFromUser = Set.of(1, 2, 3, 4, 5);
         //system under test
-        NumberReceiverFacade toTest = NumberReceiverConfiguration.numberReceiverFacade(new NumberValidator(),
+        NumberReceiverFacade toTest = NumberReceiverConfiguration.numberReceiverFacade(
+                generator,
                 new InMemoryTicketRepositoryTestImpl(),
                 clock);
         //when
@@ -81,7 +86,8 @@ class NumberReceiverFacadeTest {
         //given
         Set<Integer> numbersFromUser = Set.of(1, 2, 3, 4, 5, 6, 7);
         //system under test
-        NumberReceiverFacade toTest = NumberReceiverConfiguration.numberReceiverFacade(new NumberValidator(),
+        NumberReceiverFacade toTest = NumberReceiverConfiguration.numberReceiverFacade(
+                generator,
                 new InMemoryTicketRepositoryTestImpl(),
                 clock);
         //when
@@ -95,7 +101,8 @@ class NumberReceiverFacadeTest {
         //given
         Set<Integer> numbersFromUser = Set.of(1, 2, 3, 4, 5, 6);
         //system under test
-        NumberReceiverFacade toTest = NumberReceiverConfiguration.numberReceiverFacade(new NumberValidator(),
+        NumberReceiverFacade toTest = NumberReceiverConfiguration.numberReceiverFacade(
+                generator,
                 new InMemoryTicketRepositoryTestImpl(),
                 clock);
         //when
@@ -119,7 +126,8 @@ class NumberReceiverFacadeTest {
         Set<Integer> numbersFromUser = Set.of(1, 2, 3, 4, 5, 6);
         clock.advanceInTimeBy(Duration.ofDays(4));
         //system under test
-        NumberReceiverFacade toTest = NumberReceiverConfiguration.numberReceiverFacade(new NumberValidator(),
+        NumberReceiverFacade toTest = NumberReceiverConfiguration.numberReceiverFacade(
+                generator,
                 new InMemoryTicketRepositoryTestImpl(),
                 clock);
         //when
@@ -147,7 +155,8 @@ class NumberReceiverFacadeTest {
         System.out.println(clock);
 
         //system under test
-        NumberReceiverFacade toTest = NumberReceiverConfiguration.numberReceiverFacade(new NumberValidator(),
+        NumberReceiverFacade toTest = NumberReceiverConfiguration.numberReceiverFacade(
+                generator,
                 new InMemoryTicketRepositoryTestImpl(),
                 clock);
 

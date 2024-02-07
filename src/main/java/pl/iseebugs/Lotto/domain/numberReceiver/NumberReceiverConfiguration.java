@@ -4,7 +4,9 @@ import java.time.Clock;
 
 class NumberReceiverConfiguration {
 
-    static NumberReceiverFacade numberReceiverFacade(NumberValidator validator, TicketRepository repository,Clock clock){
-        return new NumberReceiverFacade(validator, repository, clock);
+    static NumberReceiverFacade numberReceiverFacade(IdGenerable generator, TicketRepository repository,Clock clock){
+        NumberValidator validator = new NumberValidator();
+
+        return new NumberReceiverFacade(validator, repository, clock, generator);
     }
 }
