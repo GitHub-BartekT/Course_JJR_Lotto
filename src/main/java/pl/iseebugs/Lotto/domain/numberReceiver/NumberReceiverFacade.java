@@ -23,8 +23,7 @@ public class NumberReceiverFacade {
 
     public InputNumberResultDto inputNumbers(Set<Integer> numbersFromUser) {
         if (validator.filterAllNumbersInTheRange(numbersFromUser)) {
-            //TODO: create class ticketId to generate and validate iD
-            String ticketId = UUID.randomUUID().toString();
+            String ticketId = idGenerator.getRandomId();
             LocalDateTime drawDate = GenerateDrawDate.generateNextDrawDate(LocalDateTime.now(clock));
             logger.info("draw Date: {}", drawDate);
             Ticket savedTicket = repository.save(new Ticket(ticketId, drawDate, numbersFromUser));
