@@ -9,7 +9,6 @@
 
     class GenerateDrawDate {
 
-        private static final Logger logger = LoggerFactory.getLogger(GenerateDrawDate.class);
         static LocalDateTime generateNextDrawDate (LocalDateTime buyingTicketTime){
             if(!isSaturday(buyingTicketTime)){
                 return goToNextSaturdayNoon(buyingTicketTime);
