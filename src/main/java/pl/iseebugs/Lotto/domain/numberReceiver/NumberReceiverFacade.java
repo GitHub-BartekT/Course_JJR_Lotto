@@ -48,4 +48,9 @@ public class NumberReceiverFacade {
                 .map(TicketMapper::toTicketDto)
                 .toList();
     }
+
+    public TicketDto getTicketById(String ticketId) throws TicketNotFoundException {
+        Ticket result = repository.findTicketByTicketId(ticketId).orElseThrow(TicketNotFoundException::new);
+        return TicketMapper.toTicketDto(result);
+    }
 }
