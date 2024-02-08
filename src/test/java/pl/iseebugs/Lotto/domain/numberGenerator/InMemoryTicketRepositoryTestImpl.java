@@ -1,11 +1,8 @@
 package pl.iseebugs.Lotto.domain.numberGenerator;
 
-import pl.iseebugs.Lotto.domain.numberReceiver.Ticket;
-
 import java.time.LocalDateTime;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.stream.Collectors;
 
 class InMemoryWinningNumbersRepositoryTestImpl implements WinningNumbersRepository{
     private final AtomicInteger index = new AtomicInteger(1);
@@ -26,5 +23,10 @@ class InMemoryWinningNumbersRepositoryTestImpl implements WinningNumbersReposito
     @Override
     public List<WinningNumbers> getAllWinningNumbers() {
         return new ArrayList<>(inMemoryDatabase.values());
+    }
+
+    @Override
+    public boolean existsBy(LocalDateTime dateTime) {
+        return inMemoryDatabase.containsKey(dateTime);
     }
 }

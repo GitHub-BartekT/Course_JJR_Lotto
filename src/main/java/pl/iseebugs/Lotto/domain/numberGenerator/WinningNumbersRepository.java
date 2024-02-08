@@ -10,4 +10,6 @@ interface WinningNumbersRepository {
     Optional<WinningNumbers> findWinningNumbersByDrawDate(LocalDateTime drawDate);
 
     List<WinningNumbers> getAllWinningNumbers();
+
+    boolean existsBy(LocalDateTime dateTime);
 }
