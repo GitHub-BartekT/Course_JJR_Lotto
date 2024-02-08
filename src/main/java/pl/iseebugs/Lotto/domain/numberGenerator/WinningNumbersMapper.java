@@ -7,7 +7,7 @@ import java.util.stream.Collectors;
 
 class WinningNumbersMapper {
 
-    WinningNumbersDTO toWinningNumbersDTO (WinningNumbers winningNumbersDelivered){
+    static WinningNumbersDTO toWinningNumbersDTO(WinningNumbers winningNumbersDelivered){
         return WinningNumbersDTO.builder()
                 .winningNumbers(winningNumbersDelivered.winningNumbers())
                 .drawDate(winningNumbersDelivered.drawDate())

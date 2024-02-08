@@ -6,6 +6,7 @@ import pl.iseebugs.Lotto.domain.numberReceiver.NumberReceiverFacade;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Set;
 
 @AllArgsConstructor
 public class WinningNumbersFacade {
@@ -16,8 +17,10 @@ public class WinningNumbersFacade {
 
     //TODO: generate Winning Numbers
     public WinningNumbersDTO generateWinningNumbers(){
-        WinningNumbersDTO WinningNumbersDTO= null;
-        return WinningNumbersDTO;
+        LocalDateTime drawDate = receiverFacade.generateNextDrawDate(LocalDateTime.now());
+        Set<Integer> winningNumbers = numbersGenerator.drawWinningNumbers();
+        WinningNumbersDTO result = WinningNumbersMapper.toWinningNumbersDTO(new WinningNumbers(drawDate, winningNumbers));
+        return result;
     }
 
     //TODO: get winning Numbers by Date
