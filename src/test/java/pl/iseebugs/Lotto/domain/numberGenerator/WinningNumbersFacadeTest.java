@@ -9,6 +9,7 @@ import java.time.Clock;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import static java.time.ZoneOffset.UTC;
@@ -119,7 +120,32 @@ class WinningNumbersFacadeTest {
     }
 
     @Test
-    void getAllWinningNumbers() {
+    void getAllWinningNumbers_should_return_empty_list_when_no_data() {
+        NumberReceiverFacade numberReceiverFacade = mock(NumberReceiverFacade.class);
+        when(numberReceiverFacade.generateNextDrawDate(any())).thenReturn(LocalDateTime.now(myClock));
+        WinningNumbersFacade toTest = WinningNumbersFacadeConfiguration.winningNumbersFacade(new InMemoryWinningNumbersRepositoryTestImpl(),
+                new WinningNumbersGenerator(),
+                numberReceiverFacade);
+        //when
+       List<WinningNumbersDTO> result = toTest.getAllWinningNumbers();
+        //then
+        assertThat(result.size()).isEqualTo(0);
+        assertThat(result).isNotNull();
+    }
+
+    @Test
+    void getAllWinningNumbers_should_return_list_when_data_ok() throws OutOfRangeException, IncorrectSizeException {
+        NumberReceiverFacade numberReceiverFacade = mock(NumberReceiverFacade.class);
+        when(numberReceiverFacade.generateNextDrawDate(any())).thenReturn(LocalDateTime.now(myClock));
+        WinningNumbersFacade toTest = WinningNumbersFacadeConfiguration.winningNumbersFacade(new InMemoryWinningNumbersRepositoryTestImpl(),
+                new WinningNumbersGenerator(),
+                numberReceiverFacade);
+        //when
+        toTest.generateWinningNumbers();
+        List<WinningNumbersDTO> result = toTest.getAllWinningNumbers();
+        //then
+        assertThat(result.size()).isEqualTo(1);
+        assertThat(result.get(0).drawDate()).isEqualTo(LocalDateTime.now(myClock));
     }
 
     private static WinningNumbersDTO getWinningNumbersDTO() throws OutOfRangeException, IncorrectSizeException {

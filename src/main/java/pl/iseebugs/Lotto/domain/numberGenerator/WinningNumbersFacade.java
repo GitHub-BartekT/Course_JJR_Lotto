@@ -8,6 +8,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @AllArgsConstructor
 public class WinningNumbersFacade {
@@ -30,10 +31,11 @@ public class WinningNumbersFacade {
         WinningNumbersDTO result = WinningNumbersMapper.toWinningNumbersDTO(repository.findWinningNumbersByDrawDate(dateTime).orElseThrow(WinningNumbersNotFoundException::new));
         return result;
     }
-
-    //TODO: get all winning numbers
+    
     public List<WinningNumbersDTO> getAllWinningNumbers(){
-        return null;
+        return repository.getAllWinningNumbers().stream()
+                .map(WinningNumbersMapper::toWinningNumbersDTO)
+                .collect(Collectors.toList());
     }
 
 
