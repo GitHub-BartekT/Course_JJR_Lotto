@@ -31,12 +31,10 @@ public class WinningNumbersFacade {
         WinningNumbersDTO result = WinningNumbersMapper.toWinningNumbersDTO(repository.findWinningNumbersByDrawDate(dateTime).orElseThrow(WinningNumbersNotFoundException::new));
         return result;
     }
-    
+
     public List<WinningNumbersDTO> getAllWinningNumbers(){
         return repository.getAllWinningNumbers().stream()
                 .map(WinningNumbersMapper::toWinningNumbersDTO)
                 .collect(Collectors.toList());
     }
-
-
 }
