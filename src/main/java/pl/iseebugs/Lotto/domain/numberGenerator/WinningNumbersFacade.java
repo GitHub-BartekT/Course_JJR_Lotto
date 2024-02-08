@@ -2,6 +2,7 @@ package pl.iseebugs.Lotto.domain.numberGenerator;
 
 import lombok.AllArgsConstructor;
 import pl.iseebugs.Lotto.domain.numberGenerator.dto.WinningNumbersDTO;
+import pl.iseebugs.Lotto.domain.numberReceiver.NumberReceiverFacade;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -11,6 +12,7 @@ public class WinningNumbersFacade {
 
     private final WinningNumbersRepository repository;
     private final WinningNumbersGenerable numbersGenerator;
+    private final NumberReceiverFacade receiverFacade;
 
     //TODO: generate Winning Numbers
     public WinningNumbersDTO generateWinningNumbers(){
