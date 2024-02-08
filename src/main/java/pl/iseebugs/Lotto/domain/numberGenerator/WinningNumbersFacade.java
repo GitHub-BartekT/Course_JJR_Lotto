@@ -6,6 +6,7 @@ import pl.iseebugs.Lotto.domain.numberReceiver.NumberReceiverFacade;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 @AllArgsConstructor
@@ -20,13 +21,14 @@ public class WinningNumbersFacade {
         LocalDateTime drawDate = receiverFacade.generateNextDrawDate(LocalDateTime.now());
         Set<Integer> winningNumbers = numbersGenerator.drawWinningNumbers();
         numberValidator.validateWinningNumber(winningNumbers);
-        return WinningNumbersMapper.toWinningNumbersDTO(new WinningNumbers(drawDate, winningNumbers));
+        WinningNumbers toSave = new WinningNumbers(drawDate, winningNumbers);
+        repository.save(toSave);
+        return WinningNumbersMapper.toWinningNumbersDTO(toSave);
     }
 
-    //TODO: get winning Numbers by Date
-    public WinningNumbersDTO getWinningNumbersByDate(LocalDateTime dateTime){
-        WinningNumbersDTO WinningNumbersDTO= null;
-        return WinningNumbersDTO;
+    public WinningNumbersDTO getWinningNumbersByDate(LocalDateTime dateTime) throws WinningNumbersNotFoundException {
+        WinningNumbersDTO result = WinningNumbersMapper.toWinningNumbersDTO(repository.findWinningNumbersByDrawDate(dateTime).orElseThrow(WinningNumbersNotFoundException::new));
+        return result;
     }
 
     //TODO: get all winning numbers
