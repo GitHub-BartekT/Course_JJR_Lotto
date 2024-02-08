@@ -10,6 +10,7 @@ import java.util.List;
 public class WinningNumbersFacade {
 
     private final WinningNumbersRepository repository;
+    private final WinningNumbersGenerable numbersGenerator;
 
     //TODO: generate Winning Numbers
     public WinningNumbersDTO generateWinningNumbers(){
