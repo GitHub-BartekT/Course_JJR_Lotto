@@ -4,9 +4,9 @@ import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
 
-public class WinningNumbersGenerator implements WinningNumbersGenerable{
+class WinningNumbersGenerator implements WinningNumbersGenerable{
     @Override
-    public Set<Integer> drawWinningNumbers() {
+    public Set<Integer> drawWinningNumbers(){
         Random generator = new Random();
         Set<Integer> winningNumbers = new HashSet<>();
         while (winningNumbers.size() < 6){

@@ -14,13 +14,13 @@ public class WinningNumbersFacade {
     private final WinningNumbersRepository repository;
     private final WinningNumbersGenerable numbersGenerator;
     private final NumberReceiverFacade receiverFacade;
+    private final WinningNumberValidator numberValidator;
 
-    //TODO: generate Winning Numbers
-    public WinningNumbersDTO generateWinningNumbers(){
+    public WinningNumbersDTO generateWinningNumbers() throws OutOfRangeException, IncorrectSizeException {
         LocalDateTime drawDate = receiverFacade.generateNextDrawDate(LocalDateTime.now());
         Set<Integer> winningNumbers = numbersGenerator.drawWinningNumbers();
-        WinningNumbersDTO result = WinningNumbersMapper.toWinningNumbersDTO(new WinningNumbers(drawDate, winningNumbers));
-        return result;
+        numberValidator.validateWinningNumber(winningNumbers);
+        return WinningNumbersMapper.toWinningNumbersDTO(new WinningNumbers(drawDate, winningNumbers));
     }
 
     //TODO: get winning Numbers by Date
