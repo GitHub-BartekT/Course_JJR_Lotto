@@ -14,6 +14,6 @@ Wymagania lotto
   - klient podaje 6 liczb
   - liczby muszą być w zakresie od 1-99
   - liczby nie mogą się powtarzać
-  - klient dostaje informację o dasie losowania
+  - klient dostaje informację o dacie losowania
   - klient dostaje informację o swoim unikalnym identyfikatorze losowania
   - losowania są co soboty 0 12:00
