@@ -2,10 +2,9 @@ package pl.iseebugs.Lotto.domain.numberGenerator;
 
 import java.time.LocalDateTime;
 import java.util.*;
-import java.util.concurrent.atomic.AtomicInteger;
+
 
 class InMemoryWinningNumbersRepositoryTestImpl implements WinningNumbersRepository{
-    private final AtomicInteger index = new AtomicInteger(1);
 
     Map<LocalDateTime, WinningNumbers> inMemoryDatabase = new HashMap<>();
 
