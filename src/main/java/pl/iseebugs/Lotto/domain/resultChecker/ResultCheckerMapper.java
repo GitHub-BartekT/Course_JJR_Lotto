@@ -1,15 +1,15 @@
 package pl.iseebugs.Lotto.domain.resultChecker;
 
 import pl.iseebugs.Lotto.domain.numberReceiver.dto.TicketDto;
-import pl.iseebugs.Lotto.domain.resultChecker.dto.ResultDto;
+import pl.iseebugs.Lotto.domain.resultChecker.dto.TicketResultDto;
 
 import java.util.List;
 
 class ResultCheckerMapper {
 
-    static List<ResultDto> toResultDto(List<TicketResult> ticketResultList){
+    static List<TicketResultDto> toTicketResultDto(List<TicketResult> ticketResultList){
         return ticketResultList.stream().map(
-                ticketResult -> ResultDto
+                ticketResult -> TicketResultDto
                         .builder()
                         .Id(ticketResult.Id())
                         .hitNumbers(ticketResult.hitNumbers())

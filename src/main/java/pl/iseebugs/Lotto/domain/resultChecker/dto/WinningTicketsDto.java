@@ -5,7 +5,7 @@ import lombok.Builder;
 import java.util.List;
 
 @Builder
-public record WinningTicketsDto(List<ResultDto> results,
+public record WinningTicketsDto(List<TicketResultDto> results,
                                 String message
 ) {
 

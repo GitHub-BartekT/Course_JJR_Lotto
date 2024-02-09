@@ -1,8 +1,7 @@
 package pl.iseebugs.Lotto.domain.numberGenerator;
 
 import org.junit.jupiter.api.Test;
-import pl.iseebugs.Lotto.domain.numberGenerator.dto.WinningNumbersDTO;
-import pl.iseebugs.Lotto.domain.numberReceiver.InMemoryTicketRepositoryTestImpl;
+import pl.iseebugs.Lotto.domain.numberGenerator.dto.WinningNumbersDto;
 import pl.iseebugs.Lotto.domain.numberReceiver.NumberReceiverFacade;
 
 import java.time.Clock;
@@ -15,7 +14,6 @@ import java.util.Set;
 import static java.time.ZoneOffset.UTC;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.catchThrowable;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -27,7 +25,7 @@ class WinningNumbersFacadeTest {
     @Test
     void generateWinningNumbers_should_return_six_numbers() throws OutOfRangeException, IncorrectSizeException {
         //given
-        WinningNumbersDTO result = getWinningNumbersDTO();
+        WinningNumbersDto result = getWinningNumbersDTO();
         //then
         assertThat(result.winningNumbers().size()).isEqualTo(6);
     }
@@ -35,7 +33,7 @@ class WinningNumbersFacadeTest {
     @Test
     void generateWinningNumbers_should_return_six_numbers_with_require_range() throws OutOfRangeException, IncorrectSizeException {
         //given
-        WinningNumbersDTO result = getWinningNumbersDTO();
+        WinningNumbersDto result = getWinningNumbersDTO();
         //then
         boolean isInRange = result.winningNumbers().stream().allMatch(number -> 1 <= number && number <=99 );
         assertThat(isInRange).isTrue();
@@ -44,7 +42,7 @@ class WinningNumbersFacadeTest {
     @Test
     void generateWinningNumbers_should_return_six_unique_numbers() throws OutOfRangeException, IncorrectSizeException {
         //given
-        WinningNumbersDTO result = getWinningNumbersDTO();
+        WinningNumbersDto result = getWinningNumbersDTO();
         //then
         Set<Integer> uniqueNumbers = new HashSet<>(result.winningNumbers());
         assertThat(uniqueNumbers.size()).isEqualTo(6);
@@ -113,7 +111,7 @@ class WinningNumbersFacadeTest {
                 mockNumberReceiverFacade);
         //when
         toTest.generateWinningNumbers();
-        WinningNumbersDTO result = toTest.getWinningNumbersByDate(LocalDateTime.now(myClock));
+        WinningNumbersDto result = toTest.getWinningNumbersByDate(LocalDateTime.now(myClock));
         //then
         assertThat(result).isNotNull();
         assertThat(result.drawDate()).isEqualTo(LocalDateTime.now(myClock));
@@ -127,7 +125,7 @@ class WinningNumbersFacadeTest {
                 new WinningNumbersGenerator(),
                 mockNumberReceiverFacade);
         //when
-       List<WinningNumbersDTO> result = toTest.getAllWinningNumbers();
+       List<WinningNumbersDto> result = toTest.getAllWinningNumbers();
         //then
         assertThat(result.size()).isEqualTo(0);
         assertThat(result).isNotNull();
@@ -142,13 +140,13 @@ class WinningNumbersFacadeTest {
                 mockNumberReceiverFacade);
         //when
         toTest.generateWinningNumbers();
-        List<WinningNumbersDTO> result = toTest.getAllWinningNumbers();
+        List<WinningNumbersDto> result = toTest.getAllWinningNumbers();
         //then
         assertThat(result.size()).isEqualTo(1);
         assertThat(result.get(0).drawDate()).isEqualTo(LocalDateTime.now(myClock));
     }
 
-    private static WinningNumbersDTO getWinningNumbersDTO() throws OutOfRangeException, IncorrectSizeException {
+    private static WinningNumbersDto getWinningNumbersDTO() throws OutOfRangeException, IncorrectSizeException {
         NumberReceiverFacade mockNumberReceiverFacade = mock(NumberReceiverFacade.class);
         when(mockNumberReceiverFacade.generateNextDrawDate()).thenReturn(LocalDateTime.now(myClock));
         //system under test
@@ -156,7 +154,7 @@ class WinningNumbersFacadeTest {
                 new WinningNumbersGenerator(),
                 mockNumberReceiverFacade);
         //when
-        WinningNumbersDTO result = toTest.generateWinningNumbers();
+        WinningNumbersDto result = toTest.generateWinningNumbers();
         return result;
     }
 }

@@ -39,6 +39,10 @@ public class NumberReceiverFacade {
                 .build();
     }
 
+    public List<TicketDto> getTicketsByNextDrawDate(){
+        LocalDateTime nextDrawDate = generateDrawDate.generateNextDrawDate();
+        return getTicketsByNextDrawDate(nextDrawDate);
+    }
 
     public List<TicketDto> getTicketsByNextDrawDate(LocalDateTime dateBeforeDraw){
         LocalDateTime drawDate = generateDrawDate.generateNextDrawDateByDate(dateBeforeDraw);
