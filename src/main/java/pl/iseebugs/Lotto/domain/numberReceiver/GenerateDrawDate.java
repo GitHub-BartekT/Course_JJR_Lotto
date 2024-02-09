@@ -4,21 +4,29 @@
     import org.slf4j.Logger;
     import org.slf4j.LoggerFactory;
 
+    import java.time.Clock;
     import java.time.DayOfWeek;
     import java.time.LocalDateTime;
 
     @AllArgsConstructor
     class GenerateDrawDate {
 
-        LocalDateTime generateNextDrawDate (LocalDateTime buyingTicketTime){
-            if(!isSaturday(buyingTicketTime)){
-                return goToNextSaturdayNoon(buyingTicketTime);
+        private final Clock clock;
+
+        LocalDateTime generateNextDrawDate(){
+            LocalDateTime buyingTicketTime = LocalDateTime.now(clock);
+            return generateNextDrawDateByDate(buyingTicketTime);
+        }
+
+        LocalDateTime generateNextDrawDateByDate(LocalDateTime dateBeforeDrawDate) {
+            if(!isSaturday(dateBeforeDrawDate)){
+                return goToNextSaturdayNoon(dateBeforeDrawDate);
             }
 
-            if(isBeforeNoon(buyingTicketTime)) {
-                return buyingTicketTime.withHour(12).withMinute(0).withSecond(0).withNano(0);
+            if(isBeforeNoon(dateBeforeDrawDate)) {
+                return dateBeforeDrawDate.withHour(12).withMinute(0).withSecond(0).withNano(0);
             } else {
-                return goToNextSaturdayNoon(buyingTicketTime.plusDays(1));
+                return goToNextSaturdayNoon(dateBeforeDrawDate.plusDays(1));
             }
         }
 
