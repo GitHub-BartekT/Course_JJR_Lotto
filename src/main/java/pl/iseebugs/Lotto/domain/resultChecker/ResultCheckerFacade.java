@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.Set;
 
 @AllArgsConstructor
-class ResultCheckerFacade {
+public class ResultCheckerFacade {
 
     NumberReceiverFacade numberReceiverFacade;
     WinningNumbersFacade winningNumbersFacade;

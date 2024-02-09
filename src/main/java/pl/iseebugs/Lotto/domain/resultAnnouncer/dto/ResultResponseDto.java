@@ -1,4 +1,8 @@
 package pl.iseebugs.Lotto.domain.resultAnnouncer.dto;
 
-public class ResultResponseDto {
+import lombok.Builder;
+
+@Builder
+public record ResultResponseDto(TicketResultResponseDto ticketResult,
+                                String message) {
 }

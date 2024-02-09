@@ -8,5 +8,5 @@ import java.util.Optional;
 public interface TicketResultRepository {
     List<TicketResult> saveAll(List<TicketResult> players);
 
-    Optional<TicketResult> findById(String hash);
+    Optional<TicketResult> findById(String id);
 }
