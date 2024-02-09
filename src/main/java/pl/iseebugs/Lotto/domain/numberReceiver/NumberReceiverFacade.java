@@ -54,4 +54,8 @@ public class NumberReceiverFacade {
         Ticket result = repository.findTicketByTicketId(ticketId).orElseThrow(TicketNotFoundException::new);
         return TicketMapper.toTicketDto(result);
     }
+
+    public LocalDateTime generateNextDrawDate(LocalDateTime dateTime){
+        return generateDrawDate.generateNextDrawDate(dateTime);
+    }
 }
