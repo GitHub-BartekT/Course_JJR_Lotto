@@ -1,4 +1,14 @@
 package pl.iseebugs.Lotto.domain.resultChecker;
 
-public interface ResultCheckerFacade {
+import java.time.LocalDateTime;
+
+class ResultCheckerFacade {
+
+    public void generateWinners(LocalDateTime drawDate){
+
+    }
+
+    public void generateResult(LocalDateTime drawDate){
+
+    }
 }
