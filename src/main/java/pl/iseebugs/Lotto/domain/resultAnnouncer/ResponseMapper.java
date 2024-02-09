@@ -1,4 +1,17 @@
 package pl.iseebugs.Lotto.domain.resultAnnouncer;
 
-public class ResponseMapper {
+
+import pl.iseebugs.Lotto.domain.resultAnnouncer.dto.ResultResponseDto;
+
+class ResponseMapper {
+    static ResultResponseDto toResultResponseDto(ResultResponse resultResponse){
+        return ResultResponseDto.builder()
+                .Id(resultResponse.Id())
+                .numbers(resultResponse.numbers())
+                .hitNumbers(resultResponse.hitNumbers())
+                .drawDate(resultResponse.drawDate())
+                .isWinner(resultResponse.isWinner())
+                .wonNumbers(resultResponse.wonNumbers())
+                .build();
+    }
 }
