@@ -9,9 +9,9 @@ import java.util.Map;
 import java.util.Optional;
 
 public class InMemoryTicketResultRepository implements TicketResultRepository {
-    Map<String, TicketResultDto> inMemoryDatabase = new HashMap<>();
+    Map<String, TicketResult> inMemoryDatabase = new HashMap<>();
 
-    public List<TicketResultDto> findAllTicketsByDrawDate(LocalDateTime date) {
+    public List<TicketResult> findAllTicketsByDrawDate(LocalDateTime date) {
         return inMemoryDatabase.values()
                 .stream()
                 .filter(player -> player.drawDate().equals(date))
@@ -19,13 +19,13 @@ public class InMemoryTicketResultRepository implements TicketResultRepository {
     }
 
     @Override
-    public List<TicketResultDto> saveAll(List<TicketResultDto> players) {
+    public List<TicketResult> saveAll(List<TicketResult> players) {
         players.stream().forEach(player -> inMemoryDatabase.put(player.Id(), player));
         return players;
     }
 
     @Override
-    public Optional<TicketResultDto> findById(String hash) {
+    public Optional<TicketResult> findById(String hash) {
         return Optional.ofNullable(inMemoryDatabase.get(hash));
     }
 }

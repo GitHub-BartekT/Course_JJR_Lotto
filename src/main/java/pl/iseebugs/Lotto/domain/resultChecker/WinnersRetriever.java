@@ -11,7 +11,7 @@ import static pl.iseebugs.Lotto.domain.resultChecker.ResultCheckerProperties.NUM
 
 class WinnersRetriever {
 
-    List<TicketResultDto> retrieveWinners(List<Ticket> ticketsList, Set<Integer> wonNumbers){
+    List<TicketResult> retrieveWinners(List<Ticket> ticketsList, Set<Integer> wonNumbers){
         List<TicketResult> resultList = new ArrayList<>();
 
         for (Ticket ticket : ticketsList) {
@@ -34,6 +34,6 @@ class WinnersRetriever {
                             .wonNumbers(wonNumbers)
                     .build());
         }
-        return ResultCheckerMapper.toTicketResultDto(resultList);
+        return resultList;
     }
 }

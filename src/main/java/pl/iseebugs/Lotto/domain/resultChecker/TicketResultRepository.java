@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface TicketResultRepository {
-    List<TicketResultDto> saveAll(List<TicketResultDto> players);
+    List<TicketResult> saveAll(List<TicketResult> players);
 
-    Optional<TicketResultDto> findById(String hash);
+    Optional<TicketResult> findById(String hash);
 }

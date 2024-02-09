@@ -7,9 +7,8 @@ import java.util.List;
 
 class ResultCheckerMapper {
 
-    static List<TicketResultDto> toTicketResultDto(List<TicketResult> ticketResultList){
-        return ticketResultList.stream().map(
-                ticketResult -> TicketResultDto
+    static TicketResultDto toTicketResultDto(TicketResult ticketResult){
+        return TicketResultDto
                         .builder()
                         .Id(ticketResult.Id())
                         .numbers(ticketResult.numbers())
@@ -17,8 +16,7 @@ class ResultCheckerMapper {
                         .drawDate(ticketResult.drawDate())
                         .isWinner(ticketResult.isWinner())
                         .wonNumbers(ticketResult.wonNumbers())
-                        .build())
-                .toList();
+                        .build();
     }
 
     static List<Ticket> toTicket(List<TicketDto> ticketDto){

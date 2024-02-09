@@ -36,14 +36,19 @@ class ResultCheckerFacade {
             .build();
         }
 
-        List<TicketResultDto> ticketsResult = winnersRetriever.retrieveWinners(resultDtoList, winningNumbers);
+        List<TicketResult> ticketsResult = winnersRetriever.retrieveWinners(resultDtoList, winningNumbers);
         ticketResultRepository.saveAll(ticketsResult);
+        List<TicketResultDto> result = ticketsResult.stream()
+                .map(ResultCheckerMapper::toTicketResultDto).toList();
         return WinningTicketsDto.builder()
-                .results(ticketsResult)
+                .results(result)
                 .message("Winners succeeded to retrieve")
                 .build();
     }
 
-    public void generateResult(LocalDateTime drawDate){
+    public TicketResultDto findTicketById(String id) throws TicketResultNotFoundException {
+        TicketResult resultDto =
+                ticketResultRepository.findById(id).orElseThrow(TicketResultNotFoundException::new);
+        return ResultCheckerMapper.toTicketResultDto(resultDto);
     }
 }

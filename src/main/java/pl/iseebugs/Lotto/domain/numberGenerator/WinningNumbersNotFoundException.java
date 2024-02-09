@@ -5,6 +5,4 @@ public class WinningNumbersNotFoundException extends Exception {
         public WinningNumbersNotFoundException(String message) {
             super(message);
         }
-
-
 }
