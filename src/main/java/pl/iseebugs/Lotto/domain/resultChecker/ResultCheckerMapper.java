@@ -12,6 +12,7 @@ class ResultCheckerMapper {
                 ticketResult -> TicketResultDto
                         .builder()
                         .Id(ticketResult.Id())
+                        .numbers(ticketResult.numbers())
                         .hitNumbers(ticketResult.hitNumbers())
                         .drawDate(ticketResult.drawDate())
                         .isWinner(ticketResult.isWinner())
@@ -25,7 +26,7 @@ class ResultCheckerMapper {
                 Ticket.builder()
                         .ticketId(dto.ticketId())
                         .drawDate(dto.drawDate())
-                        .numbersFromUser(dto.numbersFromUser())
+                        .numbers(dto.numbersFromUser())
                         .build())
                 .toList();
     }

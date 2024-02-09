@@ -8,6 +8,6 @@ import java.util.Set;
 @Builder
 record Ticket(String ticketId,
               LocalDateTime drawDate,
-              Set<Integer> numbersFromUser
+              Set<Integer> numbers
 ) {
 }

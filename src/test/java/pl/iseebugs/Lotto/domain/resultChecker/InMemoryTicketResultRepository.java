@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-public class InMemoryPlayerRepository implements TicketResultRepository {
+public class InMemoryTicketResultRepository implements TicketResultRepository {
     Map<String, TicketResultDto> inMemoryDatabase = new HashMap<>();
 
     public List<TicketResultDto> findAllTicketsByDrawDate(LocalDateTime date) {

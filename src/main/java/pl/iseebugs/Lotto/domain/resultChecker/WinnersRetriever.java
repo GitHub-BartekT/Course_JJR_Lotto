@@ -16,7 +16,7 @@ class WinnersRetriever {
 
         for (Ticket ticket : ticketsList) {
             Set<Integer> hitNumbers = new HashSet<>();
-            for (Integer number : ticket.numbersFromUser()) {
+            for (Integer number : ticket.numbers()) {
                 if (wonNumbers.contains(number)){
                     hitNumbers.add(number);
                 }
@@ -28,7 +28,7 @@ class WinnersRetriever {
             resultList.add(TicketResult.builder()
                             .Id(ticket.ticketId())
                             .drawDate(ticket.drawDate())
-                            .numbers(ticket.numbersFromUser())
+                            .numbers(ticket.numbers())
                             .hitNumbers(hitNumbers)
                             .isWinner(true)
                             .wonNumbers(wonNumbers)

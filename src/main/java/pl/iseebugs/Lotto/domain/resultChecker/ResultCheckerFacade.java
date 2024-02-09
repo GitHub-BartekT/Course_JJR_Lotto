@@ -25,13 +25,12 @@ class ResultCheckerFacade {
     WinnersRetriever winnersRetriever;
 
     public WinningTicketsDto  generateResults() throws OutOfRangeException, IncorrectSizeException, WinningNumbersNotFoundException {
-        LocalDateTime drawDate = numberReceiverFacade.generateNextDrawDate();
         List<TicketDto> allTicketsByDate = numberReceiverFacade.getTicketsByNextDrawDate();
         List<Ticket> resultDtoList = ResultCheckerMapper.toTicket(allTicketsByDate);
         WinningNumbersDto winningNumbersDto = winningNumbersFacade.generateWinningNumbers();
-        Set<Integer> winningNumbers = new HashSet<>(winningNumbersFacade.getWinningNumbersByDate(drawDate).winningNumbers());
+        Set<Integer> winningNumbers = winningNumbersDto.winningNumbers();
 
-        if (winningNumbers.isEmpty()){
+        if (winningNumbers == null || winningNumbers.isEmpty()){
             return WinningTicketsDto.builder()
                     .message("Winners failed to retrieve.")
             .build();
@@ -46,6 +45,5 @@ class ResultCheckerFacade {
     }
 
     public void generateResult(LocalDateTime drawDate){
-
     }
 }
