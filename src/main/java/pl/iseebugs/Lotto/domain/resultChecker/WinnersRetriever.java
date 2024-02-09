@@ -22,15 +22,12 @@ class WinnersRetriever {
                 }
             }
             boolean isWinner = hitNumbers.size() >= NUMBERS_WHEN_PLAYER_WON;
-            if(!isWinner){
-                continue;
-            }
             resultList.add(TicketResult.builder()
                             .Id(ticket.ticketId())
                             .drawDate(ticket.drawDate())
                             .numbers(ticket.numbers())
                             .hitNumbers(hitNumbers)
-                            .isWinner(true)
+                            .isWinner(isWinner)
                             .wonNumbers(wonNumbers)
                     .build());
         }

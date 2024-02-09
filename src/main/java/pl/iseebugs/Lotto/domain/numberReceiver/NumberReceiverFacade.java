@@ -52,7 +52,7 @@ public class NumberReceiverFacade {
                 .toList();
     }
 
-    public TicketDto getTicketById(String ticketId) throws TicketNotFoundException {
+    public TicketDto findTicketById(String ticketId) throws TicketNotFoundException {
         Ticket result = repository.findTicketByTicketId(ticketId).orElseThrow(TicketNotFoundException::new);
         return TicketMapper.toTicketDto(result);
     }
