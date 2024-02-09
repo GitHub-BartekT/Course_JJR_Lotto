@@ -11,5 +11,5 @@ interface WinningNumbersRepository {
 
     List<WinningNumbers> getAllWinningNumbers();
 
-    boolean existsBy(LocalDateTime dateTime);
+    boolean existsByDrawDate(LocalDateTime dateTime);
 }

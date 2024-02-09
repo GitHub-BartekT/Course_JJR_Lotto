@@ -14,18 +14,18 @@ public class InMemoryTicketResultRepository implements TicketResultRepository {
     public List<TicketResult> findAllTicketsByDrawDate(LocalDateTime date) {
         return inMemoryDatabase.values()
                 .stream()
-                .filter(player -> player.drawDate().equals(date))
+                .filter(ticketResult -> ticketResult.drawDate().equals(date))
                 .toList();
     }
 
     @Override
-    public List<TicketResult> saveAll(List<TicketResult> players) {
-        players.stream().forEach(player -> inMemoryDatabase.put(player.Id(), player));
-        return players;
+    public List<TicketResult> saveAll(List<TicketResult> ticketsResults) {
+        ticketsResults.stream().forEach(ticketResult -> inMemoryDatabase.put(ticketResult.Id(), ticketResult));
+        return ticketsResults;
     }
 
     @Override
-    public Optional<TicketResult> findById(String hash) {
-        return Optional.ofNullable(inMemoryDatabase.get(hash));
+    public Optional<TicketResult> findById(String id) {
+        return Optional.ofNullable(inMemoryDatabase.get(id));
     }
 }
