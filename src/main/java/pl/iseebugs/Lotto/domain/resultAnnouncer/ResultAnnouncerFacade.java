@@ -12,9 +12,9 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class ResultAnnouncerFacade {
 
-    ResponseRepository responseRepository;
-    ResultCheckerFacade resultCheckerFacade;
-    Clock clock;
+    private final ResponseRepository responseRepository;
+    private final ResultCheckerFacade resultCheckerFacade;
+    private final Clock clock;
 
     public ResultResponseDto resultResponse(String ticketId) throws TicketResultNotFoundException, ResultResponseNotFoundException {
         TicketResultResponseDto resultResponseDto;
@@ -44,12 +44,12 @@ public class ResultAnnouncerFacade {
     }
 
     private ResponseMessage validateResponse(TicketResultResponseDto resultDto){
-        if (resultDto.isWinner()){
+        if (!resultDto.isWinner()){
+            return ResponseMessage.LOOSE;
+        } else if (resultDto.hitNumbers().size() == 6){
             return ResponseMessage.WIN;
-        } else if (resultDto.hitNumbers().size() >= 3){
-            return ResponseMessage.NOT_BAD;
         }
-        return ResponseMessage.LOOSE;
+        return ResponseMessage.NOT_BAD;
     }
 
     private boolean isAfterDraw(TicketResultResponseDto ticketResultResponseDto){

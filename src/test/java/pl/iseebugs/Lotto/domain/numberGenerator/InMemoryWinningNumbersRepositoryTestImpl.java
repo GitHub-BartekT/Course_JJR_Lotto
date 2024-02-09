@@ -23,9 +23,4 @@ class InMemoryWinningNumbersRepositoryTestImpl implements WinningNumbersReposito
     public List<WinningNumbers> getAllWinningNumbers() {
         return new ArrayList<>(inMemoryDatabase.values());
     }
-
-    @Override
-    public boolean existsBy(LocalDateTime dateTime) {
-        return inMemoryDatabase.containsKey(dateTime);
-    }
 }
