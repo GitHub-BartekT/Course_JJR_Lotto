@@ -2,11 +2,12 @@ package pl.iseebugs.Lotto.domain.resultAnnouncer;
 
 
 import pl.iseebugs.Lotto.domain.resultAnnouncer.dto.ResultResponseDto;
-import pl.iseebugs.Lotto.domain.resultAnnouncer.dto.TicketResultDto;
+import pl.iseebugs.Lotto.domain.resultAnnouncer.dto.TicketResultResponseDto;
+import pl.iseebugs.Lotto.domain.resultChecker.dto.TicketResultDto;
 
 class ResponseMapper {
-    static TicketResultDto toTicketResultDto(TicketResponse ticketResponse){
-        return TicketResultDto.builder()
+    static TicketResultResponseDto toTicketResultDtoFromTicketResponse(TicketResponse ticketResponse){
+        return TicketResultResponseDto.builder()
                 .Id(ticketResponse.Id())
                 .numbers(ticketResponse.numbers())
                 .hitNumbers(ticketResponse.hitNumbers())
@@ -16,10 +17,21 @@ class ResponseMapper {
                 .build();
     }
 
-    static ResultResponseDto resultAnnouncerResponseDto(TicketResultDto ticketResultDto,
+    static TicketResultResponseDto toTicketResultDto(TicketResultDto ticketResponse){
+        return TicketResultResponseDto.builder()
+                .Id(ticketResponse.Id())
+                .numbers(ticketResponse.numbers())
+                .hitNumbers(ticketResponse.hitNumbers())
+                .drawDate(ticketResponse.drawDate())
+                .isWinner(ticketResponse.isWinner())
+                .wonNumbers(ticketResponse.wonNumbers())
+                .build();
+    }
+
+    static ResultResponseDto resultAnnouncerResponseDto(TicketResultResponseDto ticketResultResponseDto,
                                                         ResponseMessage responseMessage){
         return ResultResponseDto.builder()
-                .ticketResult(ticketResultDto)
+                .ticketResult(ticketResultResponseDto)
                 .message(responseMessage.message)
                 .build();
     }
