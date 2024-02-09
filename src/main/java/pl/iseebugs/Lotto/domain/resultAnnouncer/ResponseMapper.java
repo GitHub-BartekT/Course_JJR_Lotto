@@ -2,16 +2,25 @@ package pl.iseebugs.Lotto.domain.resultAnnouncer;
 
 
 import pl.iseebugs.Lotto.domain.resultAnnouncer.dto.ResultResponseDto;
+import pl.iseebugs.Lotto.domain.resultAnnouncer.dto.TicketResultDto;
 
 class ResponseMapper {
-    static ResultResponseDto toResultResponseDto(ResultResponse resultResponse){
+    static TicketResultDto toTicketResultDto(TicketResponse ticketResponse){
+        return TicketResultDto.builder()
+                .Id(ticketResponse.Id())
+                .numbers(ticketResponse.numbers())
+                .hitNumbers(ticketResponse.hitNumbers())
+                .drawDate(ticketResponse.drawDate())
+                .isWinner(ticketResponse.isWinner())
+                .wonNumbers(ticketResponse.wonNumbers())
+                .build();
+    }
+
+    static ResultResponseDto resultAnnouncerResponseDto(TicketResultDto ticketResultDto,
+                                                        ResponseMessage responseMessage){
         return ResultResponseDto.builder()
-                .Id(resultResponse.Id())
-                .numbers(resultResponse.numbers())
-                .hitNumbers(resultResponse.hitNumbers())
-                .drawDate(resultResponse.drawDate())
-                .isWinner(resultResponse.isWinner())
-                .wonNumbers(resultResponse.wonNumbers())
+                .ticketResult(ticketResultDto)
+                .message(responseMessage.message)
                 .build();
     }
 }

@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
 import java.util.Set;
 
 @Builder
-record ResultResponse(
+record TicketResponse(
         String Id,
         Set<Integer> numbers,
         Set<Integer> hitNumbers,

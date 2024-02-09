@@ -4,7 +4,7 @@ import java.util.Optional;
 
 public interface ResponseRepository {
 
-    Optional<ResultResponse> findResultResponseById(String id);
+    Optional<TicketResponse> findResultResponseById(String id);
 
     boolean existsById(String id);
 }
