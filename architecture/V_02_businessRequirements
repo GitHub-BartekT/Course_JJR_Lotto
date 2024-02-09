@@ -1,0 +1,20 @@
+Wymagania lotto
+  - zakup losu
+    - cena: 3,50 PLN
+    - limit: 2 kupony
+  - powiększ los
+    - cena +2 PLN
+  - wybranie liczb
+    - ile liczb: 6
+    - powtórzenia: nie
+  - losowanie [kiedy? ile osób wygrywa?]
+  - odbiór nagrody [limit na odbiór, warunki]
+
+# Jako klient chcę zagrać w Lotto, podać liczby i sprawdzić, czy wygrałem danego dnia
+  - klient podaje 6 liczb
+  - liczby muszą być w zakresie od 1-99
+  - liczby nie mogą się powtarzać
+  - klient dostaje informację o dacie losowania
+  - klient dostaje informację o swoim unikalnym identyfikatorze losowania
+  - wygrane liczby powinny być pobrane ze zdalnego serwera HTTP
+  - losowania są co soboty 0 12:00
