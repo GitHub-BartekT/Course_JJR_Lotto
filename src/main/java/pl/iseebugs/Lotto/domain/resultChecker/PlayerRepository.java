@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface PlayerRepository {
-    List<Player> saveAll(List<Player> players);
+    List<TicketResult> saveAll(List<TicketResult> players);
 
-    Optional<Player> findById(String hash);
+    Optional<TicketResult> findById(String hash);
 }
