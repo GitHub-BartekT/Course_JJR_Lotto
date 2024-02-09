@@ -1,6 +1,7 @@
 package pl.iseebugs.Lotto.domain.numberGenerator;
 
 import org.junit.jupiter.api.Test;
+import pl.iseebugs.Lotto.domain.numberGenerator.dto.OneRandomNumberResponseDto;
 import pl.iseebugs.Lotto.domain.numberGenerator.dto.WinningNumbersDto;
 import pl.iseebugs.Lotto.domain.numberReceiver.NumberReceiverFacade;
 
@@ -147,11 +148,12 @@ class WinningNumbersFacadeTest {
     }
 
     private static WinningNumbersDto getWinningNumbersDTO() throws OutOfRangeException, IncorrectSizeException {
+        OneRandomNumberFetcher fetcher = new SecureOneRandomNumberFetcher();
         NumberReceiverFacade mockNumberReceiverFacade = mock(NumberReceiverFacade.class);
         when(mockNumberReceiverFacade.generateNextDrawDate()).thenReturn(LocalDateTime.now(myClock));
         //system under test
         WinningNumbersFacade toTest = WinningNumbersFacadeConfiguration.winningNumbersFacade(new InMemoryWinningNumbersRepositoryTestImpl(),
-                new WinningNumbersGenerator(),
+                new WinningNumbersGenerator_HTTP(fetcher),
                 mockNumberReceiverFacade);
         //when
         WinningNumbersDto result = toTest.generateWinningNumbers();
