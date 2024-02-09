@@ -18,14 +18,13 @@ public class NumberReceiverFacade {
 
     private final NumberValidator validator;
     private final TicketRepository repository;
-    private final Clock clock;
     private final IdGenerable idGenerator;
     private final GenerateDrawDate generateDrawDate;
 
     public InputNumberResultDto inputNumbers(Set<Integer> numbersFromUser) {
         if (validator.filterAllNumbersInTheRange(numbersFromUser)) {
             String ticketId = idGenerator.getRandomId();
-            LocalDateTime drawDate = generateDrawDate.generateNextDrawDate(LocalDateTime.now(clock));
+            LocalDateTime drawDate = generateDrawDate.generateNextDrawDate();
             logger.info("draw Date: {}", drawDate);
             Ticket savedTicket = repository.save(new Ticket(ticketId, drawDate, numbersFromUser));
             return InputNumberResultDto.builder()
@@ -41,9 +40,8 @@ public class NumberReceiverFacade {
     }
 
 
-    public List<TicketDto> getTicketsByNextDrawDate(LocalDateTime date){
-        LocalDateTime drawDate = generateDrawDate.generateNextDrawDate(date);
-
+    public List<TicketDto> getTicketsByNextDrawDate(LocalDateTime dateBeforeDraw){
+        LocalDateTime drawDate = generateDrawDate.generateNextDrawDateByDate(dateBeforeDraw);
         List<Ticket> allTicketsByDrawDate = repository.findAllTicketsByDrawDate(drawDate);
         return allTicketsByDrawDate.stream()
                 .map(TicketMapper::toTicketDto)
@@ -55,7 +53,11 @@ public class NumberReceiverFacade {
         return TicketMapper.toTicketDto(result);
     }
 
-    public LocalDateTime generateNextDrawDate(LocalDateTime dateTime){
-        return generateDrawDate.generateNextDrawDate(dateTime);
+    public LocalDateTime generateNextDrawDate(){
+        return generateDrawDate.generateNextDrawDate();
+    }
+
+    public LocalDateTime generateNextDrawDateByDate(LocalDateTime dateBeforeDraw){
+        return generateDrawDate.generateNextDrawDateByDate(dateBeforeDraw);
     }
 }

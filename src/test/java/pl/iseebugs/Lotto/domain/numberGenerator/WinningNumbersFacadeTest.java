@@ -54,7 +54,7 @@ class WinningNumbersFacadeTest {
     void generateWinningNumbers_should_throw_exception_when_at_least_one_number_is_out_of_range() throws OutOfRangeException {
         //when
         NumberReceiverFacade mockNumberReceiverFacade = mock(NumberReceiverFacade.class);
-        when(mockNumberReceiverFacade.generateNextDrawDate(any())).thenReturn(LocalDateTime.now(myClock));
+        when(mockNumberReceiverFacade.generateNextDrawDate()).thenReturn(LocalDateTime.now(myClock));
 
         WinningNumbersGenerator mockWinningNumberGenerator = mock(WinningNumbersGenerator.class);
         Set<Integer> set = new HashSet<>(Set.of(1,5,100,2,3,4));
@@ -74,7 +74,7 @@ class WinningNumbersFacadeTest {
     void generateWinningNumbers_should_throw_exception_when_incorrect_number_of_numbers() throws OutOfRangeException {
         //when
         NumberReceiverFacade mockNumberReceiverFacade = mock(NumberReceiverFacade.class);
-        when(mockNumberReceiverFacade.generateNextDrawDate(any())).thenReturn(LocalDateTime.now(myClock));
+        when(mockNumberReceiverFacade.generateNextDrawDate()).thenReturn(LocalDateTime.now(myClock));
 
         WinningNumbersGenerator mockWinningNumberGenerator = mock(WinningNumbersGenerator.class);
         Set<Integer> set = new HashSet<>(Set.of(1,2,3,4,5,6,7));
@@ -92,11 +92,11 @@ class WinningNumbersFacadeTest {
 
     @Test
     void getWinningNumbersByDate_should_throw_exception_when_no_data() throws OutOfRangeException, IncorrectSizeException, WinningNumbersNotFoundException {
-        NumberReceiverFacade numberReceiverFacade = mock(NumberReceiverFacade.class);
-        when(numberReceiverFacade.generateNextDrawDate(any())).thenReturn(LocalDateTime.now(myClock));
+        NumberReceiverFacade mockNumberReceiverFacade = mock(NumberReceiverFacade.class);
+        when(mockNumberReceiverFacade.generateNextDrawDate()).thenReturn(LocalDateTime.now(myClock));
         WinningNumbersFacade toTest = WinningNumbersFacadeConfiguration.winningNumbersFacade(new InMemoryWinningNumbersRepositoryTestImpl(),
                 new WinningNumbersGenerator(),
-                numberReceiverFacade);
+                mockNumberReceiverFacade);
         //when
         var exception = catchThrowable(() ->toTest.getWinningNumbersByDate(LocalDateTime.now(myClock)));
         //then
@@ -106,11 +106,11 @@ class WinningNumbersFacadeTest {
     @Test
     void getWinningNumbersByDate_should_return_data() throws OutOfRangeException, IncorrectSizeException, WinningNumbersNotFoundException {
         //given
-        NumberReceiverFacade numberReceiverFacade = mock(NumberReceiverFacade.class);
-        when(numberReceiverFacade.generateNextDrawDate(any())).thenReturn(LocalDateTime.now(myClock));
+        NumberReceiverFacade mockNumberReceiverFacade = mock(NumberReceiverFacade.class);
+        when(mockNumberReceiverFacade.generateNextDrawDate()).thenReturn(LocalDateTime.now(myClock));
         WinningNumbersFacade toTest = WinningNumbersFacadeConfiguration.winningNumbersFacade(new InMemoryWinningNumbersRepositoryTestImpl(),
                 new WinningNumbersGenerator(),
-                numberReceiverFacade);
+                mockNumberReceiverFacade);
         //when
         toTest.generateWinningNumbers();
         WinningNumbersDTO result = toTest.getWinningNumbersByDate(LocalDateTime.now(myClock));
@@ -121,11 +121,11 @@ class WinningNumbersFacadeTest {
 
     @Test
     void getAllWinningNumbers_should_return_empty_list_when_no_data() {
-        NumberReceiverFacade numberReceiverFacade = mock(NumberReceiverFacade.class);
-        when(numberReceiverFacade.generateNextDrawDate(any())).thenReturn(LocalDateTime.now(myClock));
+        NumberReceiverFacade mockNumberReceiverFacade = mock(NumberReceiverFacade.class);
+        when(mockNumberReceiverFacade.generateNextDrawDate()).thenReturn(LocalDateTime.now(myClock));
         WinningNumbersFacade toTest = WinningNumbersFacadeConfiguration.winningNumbersFacade(new InMemoryWinningNumbersRepositoryTestImpl(),
                 new WinningNumbersGenerator(),
-                numberReceiverFacade);
+                mockNumberReceiverFacade);
         //when
        List<WinningNumbersDTO> result = toTest.getAllWinningNumbers();
         //then
@@ -135,11 +135,11 @@ class WinningNumbersFacadeTest {
 
     @Test
     void getAllWinningNumbers_should_return_list_when_data_ok() throws OutOfRangeException, IncorrectSizeException {
-        NumberReceiverFacade numberReceiverFacade = mock(NumberReceiverFacade.class);
-        when(numberReceiverFacade.generateNextDrawDate(any())).thenReturn(LocalDateTime.now(myClock));
+        NumberReceiverFacade mockNumberReceiverFacade = mock(NumberReceiverFacade.class);
+        when(mockNumberReceiverFacade.generateNextDrawDate()).thenReturn(LocalDateTime.now(myClock));
         WinningNumbersFacade toTest = WinningNumbersFacadeConfiguration.winningNumbersFacade(new InMemoryWinningNumbersRepositoryTestImpl(),
                 new WinningNumbersGenerator(),
-                numberReceiverFacade);
+                mockNumberReceiverFacade);
         //when
         toTest.generateWinningNumbers();
         List<WinningNumbersDTO> result = toTest.getAllWinningNumbers();
@@ -149,12 +149,12 @@ class WinningNumbersFacadeTest {
     }
 
     private static WinningNumbersDTO getWinningNumbersDTO() throws OutOfRangeException, IncorrectSizeException {
-        NumberReceiverFacade numberReceiverFacade = mock(NumberReceiverFacade.class);
-        when(numberReceiverFacade.generateNextDrawDate(any())).thenReturn(LocalDateTime.now(myClock));
+        NumberReceiverFacade mockNumberReceiverFacade = mock(NumberReceiverFacade.class);
+        when(mockNumberReceiverFacade.generateNextDrawDate()).thenReturn(LocalDateTime.now(myClock));
         //system under test
         WinningNumbersFacade toTest = WinningNumbersFacadeConfiguration.winningNumbersFacade(new InMemoryWinningNumbersRepositoryTestImpl(),
                 new WinningNumbersGenerator(),
-                numberReceiverFacade);
+                mockNumberReceiverFacade);
         //when
         WinningNumbersDTO result = toTest.generateWinningNumbers();
         return result;

@@ -19,7 +19,7 @@ public class WinningNumbersFacade {
     private final WinningNumberValidator numberValidator;
 
     public WinningNumbersDTO generateWinningNumbers() throws OutOfRangeException, IncorrectSizeException {
-        LocalDateTime drawDate = receiverFacade.generateNextDrawDate(LocalDateTime.now());
+        LocalDateTime drawDate = receiverFacade.generateNextDrawDate();
         Set<Integer> winningNumbers = numbersGenerator.drawWinningNumbers();
         numberValidator.validateWinningNumber(winningNumbers);
         WinningNumbers toSave = new WinningNumbers(drawDate, winningNumbers);

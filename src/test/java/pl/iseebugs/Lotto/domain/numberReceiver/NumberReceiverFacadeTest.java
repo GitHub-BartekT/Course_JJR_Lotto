@@ -25,8 +25,7 @@ class NumberReceiverFacadeTest {
         NumberReceiverFacade toTest = NumberReceiverConfiguration.numberReceiverFacade(
                 generator,
                 new InMemoryTicketRepositoryTestImpl(),
-                clock,
-                new GenerateDrawDate());
+                clock);
         return toTest;
     }
 
