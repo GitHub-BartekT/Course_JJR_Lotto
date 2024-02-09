@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-public class InMemoryTicketRepositoryTestImpl implements TicketRepository {
+class InMemoryTicketRepositoryTestImpl implements TicketRepository {
     Map<String, Ticket> inMemoryDatabase = new HashMap<>();
 
     @Override
