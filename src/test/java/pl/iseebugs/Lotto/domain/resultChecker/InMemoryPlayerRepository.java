@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-public class InMemoryPlayerRepository implements PlayerRepository{
+public class InMemoryPlayerRepository implements TicketResultRepository {
     Map<String, TicketResult> inMemoryDatabase = new HashMap<>();
 
     public List<TicketResult> findAllTicketsByDrawDate(LocalDateTime date) {

@@ -9,6 +9,7 @@ import java.util.Set;
 public record TicketResult(String Id,
                            Set<Integer> numbers,
                            Set<Integer> hitNumbers,
+                           Set<Integer> wonNumbers,
                            LocalDateTime drawDate,
                            boolean isWinner) {
 }
