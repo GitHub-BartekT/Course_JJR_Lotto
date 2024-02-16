@@ -7,13 +7,15 @@ import java.util.Set;
 
 class WinningNumbersGenerator implements WinningNumbersGenerable{
     @Override
-    public Set<Integer> drawWinningNumbers(){
+    public SixRandomNumbersDto generateSixRandomNumbers(){
         Random generator = new Random();
         Set<Integer> winningNumbers = new HashSet<>();
         while (winningNumbers.size() < NUMBER_OF_WINNING_NUMBERS){
             Integer newNumber = LOWER_BOUND + generator.nextInt(UPPER_BOUND);
             winningNumbers.add(newNumber);
         }
-        return winningNumbers;
+        return SixRandomNumbersDto.builder()
+                .numbers(winningNumbers)
+                .build();
     }
 }
