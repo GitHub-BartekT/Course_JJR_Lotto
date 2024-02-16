@@ -1,6 +1,8 @@
-# HAPPY PATH
-  1. when user input 6 numbers (1,2,3,4,5,6) to POST /inputNumbers on date on  12-10-2022
-  2. system returns that numbers were correct in range (1-99), unique random ID (userLotteryId) and draw date 15-10-2022
-  3. system generates random winning number(1,2,3,4,5,6) using "lotto" logic for day 15-12-2022
-  4. user wants to know if won using GET /winners/{userLotteryId}
-  5. system returns 'won result' to user
+# HAPPY PATH without failures
+//  Step 1: external service returns 6 random numbers (1,2,3,4,5,6)
+//  Step 2: user made POST /inputNumbers with 6 numbers (1,2,3,4,5,6) at 15-02-2024 10:00 and system returned OK(200) with message: "success" and Ticket (DrawDate:17.02.2024 12:00(Saturday), TicketId: sampleTicketId)
+//  Step 3: system fetched winning numbers for draw date: 17.02.2024 12:00
+//  Step 4: 2 days, 2 hours and 1 minute passed, and it is 1 minute after the draw date (17.02.2024 12:01)
+//  Step 5: system generated result for TicketId: sampleTicketId with draw date 17.02.2024 12:00, and saved it with 6 hits
+//  Step 6: 3 hours passed, and it is 1 minute after announcement time (17.02.2024 15:01)
+//  Step 7: user made GET/results/sampleTicketId and system returned 200(OK)
