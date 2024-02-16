@@ -1,7 +1,6 @@
 package pl.iseebugs.Lotto.domain.numberGenerator;
 
 import org.junit.jupiter.api.Test;
-import pl.iseebugs.Lotto.domain.numberGenerator.dto.OneRandomNumberResponseDto;
 import pl.iseebugs.Lotto.domain.numberGenerator.dto.WinningNumbersDto;
 import pl.iseebugs.Lotto.domain.numberReceiver.NumberReceiverFacade;
 
@@ -55,12 +54,10 @@ class WinningNumbersFacadeTest {
         NumberReceiverFacade mockNumberReceiverFacade = mock(NumberReceiverFacade.class);
         when(mockNumberReceiverFacade.generateNextDrawDate()).thenReturn(LocalDateTime.now(myClock));
 
-        WinningNumbersGenerator mockWinningNumberGenerator = mock(WinningNumbersGenerator.class);
-        Set<Integer> set = new HashSet<>(Set.of(1,5,100,2,3,4));
-        when(mockWinningNumberGenerator.drawWinningNumbers()).thenReturn(set);
+        WinningNumbersGenerable winningNumberGenerator = new WinningNumbersGeneratorTestImpl(Set.of(1,5,100,2,3,4));
         //system under test
         WinningNumbersFacade toTest = WinningNumbersFacadeConfiguration.winningNumbersFacade(new InMemoryWinningNumbersRepositoryTestImpl(),
-                mockWinningNumberGenerator,
+                winningNumberGenerator,
                 mockNumberReceiverFacade);
         //when
         var exception = catchThrowable(toTest::generateWinningNumbers);
@@ -75,12 +72,10 @@ class WinningNumbersFacadeTest {
         NumberReceiverFacade mockNumberReceiverFacade = mock(NumberReceiverFacade.class);
         when(mockNumberReceiverFacade.generateNextDrawDate()).thenReturn(LocalDateTime.now(myClock));
 
-        WinningNumbersGenerator mockWinningNumberGenerator = mock(WinningNumbersGenerator.class);
-        Set<Integer> set = new HashSet<>(Set.of(1,2,3,4,5,6,7));
-        when(mockWinningNumberGenerator.drawWinningNumbers()).thenReturn(set);
+        WinningNumbersGenerable winningNumberGenerator = new WinningNumbersGeneratorTestImpl(Set.of(1,2,3,4,5,6,7));
         //system under test
         WinningNumbersFacade toTest = WinningNumbersFacadeConfiguration.winningNumbersFacade(new InMemoryWinningNumbersRepositoryTestImpl(),
-                mockWinningNumberGenerator,
+                winningNumberGenerator,
                 mockNumberReceiverFacade);
         //when
         var exception = catchThrowable(toTest::generateWinningNumbers);
@@ -148,12 +143,11 @@ class WinningNumbersFacadeTest {
     }
 
     private static WinningNumbersDto getWinningNumbersDTO() throws OutOfRangeException, IncorrectSizeException {
-        OneRandomNumberFetcher fetcher = new SecureOneRandomNumberFetcher();
         NumberReceiverFacade mockNumberReceiverFacade = mock(NumberReceiverFacade.class);
         when(mockNumberReceiverFacade.generateNextDrawDate()).thenReturn(LocalDateTime.now(myClock));
         //system under test
         WinningNumbersFacade toTest = WinningNumbersFacadeConfiguration.winningNumbersFacade(new InMemoryWinningNumbersRepositoryTestImpl(),
-                new WinningNumbersGenerator_HTTP(fetcher),
+                new WinningNumbersGeneratorTestImpl(),
                 mockNumberReceiverFacade);
         //when
         WinningNumbersDto result = toTest.generateWinningNumbers();

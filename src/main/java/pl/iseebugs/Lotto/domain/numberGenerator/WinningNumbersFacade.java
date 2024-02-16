@@ -19,7 +19,8 @@ public class WinningNumbersFacade {
 
     public WinningNumbersDto generateWinningNumbers() throws OutOfRangeException, IncorrectSizeException {
         LocalDateTime drawDate = receiverFacade.generateNextDrawDate();
-        Set<Integer> winningNumbers = numbersGenerator.drawWinningNumbers();
+        SixRandomNumbersDto dto = numbersGenerator.generateSixRandomNumbers();
+        Set<Integer> winningNumbers = dto.numbers();
         numberValidator.validateWinningNumber(winningNumbers);
         WinningNumbers toSave = new WinningNumbers(drawDate, winningNumbers);
         repository.save(toSave);
