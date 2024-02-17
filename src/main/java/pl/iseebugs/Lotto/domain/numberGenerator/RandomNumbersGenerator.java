@@ -5,7 +5,7 @@ import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
 
-class WinningNumbersGenerator implements WinningNumbersGenerable{
+class RandomNumbersGenerator implements RandomNumbersGenerable {
     @Override
     public SixRandomNumbersDto generateSixRandomNumbers(){
         Random generator = new Random();

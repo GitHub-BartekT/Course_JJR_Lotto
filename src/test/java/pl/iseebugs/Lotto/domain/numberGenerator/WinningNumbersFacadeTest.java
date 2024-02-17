@@ -54,7 +54,7 @@ class WinningNumbersFacadeTest {
         NumberReceiverFacade mockNumberReceiverFacade = mock(NumberReceiverFacade.class);
         when(mockNumberReceiverFacade.generateNextDrawDate()).thenReturn(LocalDateTime.now(myClock));
 
-        WinningNumbersGenerable winningNumberGenerator = new WinningNumbersGeneratorTestImpl(Set.of(1,5,100,2,3,4));
+        RandomNumbersGenerable winningNumberGenerator = new RandomNumbersGeneratorTestImpl(Set.of(1,5,100,2,3,4));
         //system under test
         WinningNumbersFacade toTest = WinningNumbersFacadeConfiguration.winningNumbersFacade(new InMemoryWinningNumbersRepositoryTestImpl(),
                 winningNumberGenerator,
@@ -72,7 +72,7 @@ class WinningNumbersFacadeTest {
         NumberReceiverFacade mockNumberReceiverFacade = mock(NumberReceiverFacade.class);
         when(mockNumberReceiverFacade.generateNextDrawDate()).thenReturn(LocalDateTime.now(myClock));
 
-        WinningNumbersGenerable winningNumberGenerator = new WinningNumbersGeneratorTestImpl(Set.of(1,2,3,4,5,6,7));
+        RandomNumbersGenerable winningNumberGenerator = new RandomNumbersGeneratorTestImpl(Set.of(1,2,3,4,5,6,7));
         //system under test
         WinningNumbersFacade toTest = WinningNumbersFacadeConfiguration.winningNumbersFacade(new InMemoryWinningNumbersRepositoryTestImpl(),
                 winningNumberGenerator,
@@ -89,7 +89,7 @@ class WinningNumbersFacadeTest {
         NumberReceiverFacade mockNumberReceiverFacade = mock(NumberReceiverFacade.class);
         when(mockNumberReceiverFacade.generateNextDrawDate()).thenReturn(LocalDateTime.now(myClock));
         WinningNumbersFacade toTest = WinningNumbersFacadeConfiguration.winningNumbersFacade(new InMemoryWinningNumbersRepositoryTestImpl(),
-                new WinningNumbersGenerator(),
+                new RandomNumbersGenerator(),
                 mockNumberReceiverFacade);
         //when
         var exception = catchThrowable(() ->toTest.getWinningNumbersByDate(LocalDateTime.now(myClock)));
@@ -103,7 +103,7 @@ class WinningNumbersFacadeTest {
         NumberReceiverFacade mockNumberReceiverFacade = mock(NumberReceiverFacade.class);
         when(mockNumberReceiverFacade.generateNextDrawDate()).thenReturn(LocalDateTime.now(myClock));
         WinningNumbersFacade toTest = WinningNumbersFacadeConfiguration.winningNumbersFacade(new InMemoryWinningNumbersRepositoryTestImpl(),
-                new WinningNumbersGenerator(),
+                new RandomNumbersGenerator(),
                 mockNumberReceiverFacade);
         //when
         toTest.generateWinningNumbers();
@@ -118,7 +118,7 @@ class WinningNumbersFacadeTest {
         NumberReceiverFacade mockNumberReceiverFacade = mock(NumberReceiverFacade.class);
         when(mockNumberReceiverFacade.generateNextDrawDate()).thenReturn(LocalDateTime.now(myClock));
         WinningNumbersFacade toTest = WinningNumbersFacadeConfiguration.winningNumbersFacade(new InMemoryWinningNumbersRepositoryTestImpl(),
-                new WinningNumbersGenerator(),
+                new RandomNumbersGenerator(),
                 mockNumberReceiverFacade);
         //when
        List<WinningNumbersDto> result = toTest.getAllWinningNumbers();
@@ -132,7 +132,7 @@ class WinningNumbersFacadeTest {
         NumberReceiverFacade mockNumberReceiverFacade = mock(NumberReceiverFacade.class);
         when(mockNumberReceiverFacade.generateNextDrawDate()).thenReturn(LocalDateTime.now(myClock));
         WinningNumbersFacade toTest = WinningNumbersFacadeConfiguration.winningNumbersFacade(new InMemoryWinningNumbersRepositoryTestImpl(),
-                new WinningNumbersGenerator(),
+                new RandomNumbersGenerator(),
                 mockNumberReceiverFacade);
         //when
         toTest.generateWinningNumbers();
@@ -147,7 +147,7 @@ class WinningNumbersFacadeTest {
         when(mockNumberReceiverFacade.generateNextDrawDate()).thenReturn(LocalDateTime.now(myClock));
         //system under test
         WinningNumbersFacade toTest = WinningNumbersFacadeConfiguration.winningNumbersFacade(new InMemoryWinningNumbersRepositoryTestImpl(),
-                new WinningNumbersGeneratorTestImpl(),
+                new RandomNumbersGeneratorTestImpl(),
                 mockNumberReceiverFacade);
         //when
         WinningNumbersDto result = toTest.generateWinningNumbers();

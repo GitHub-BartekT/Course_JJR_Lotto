@@ -5,7 +5,7 @@ import pl.iseebugs.Lotto.domain.numberReceiver.NumberReceiverFacade;
 class WinningNumbersFacadeConfiguration {
 
     static WinningNumbersFacade winningNumbersFacade(WinningNumbersRepository winningNumbersRepository,
-                                              WinningNumbersGenerable numbersGenerator,
+                                              RandomNumbersGenerable numbersGenerator,
                                               NumberReceiverFacade numberReceiverFacade){
 
         WinningNumberValidator numberValidator = new WinningNumberValidator();
