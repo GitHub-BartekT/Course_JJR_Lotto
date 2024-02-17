@@ -1,5 +1,5 @@
 package pl.iseebugs.Lotto.domain.numberGenerator;
 
-public interface WinningNumbersGenerable {
+public interface RandomNumbersGenerable {
     SixRandomNumbersDto generateSixRandomNumbers();
 }

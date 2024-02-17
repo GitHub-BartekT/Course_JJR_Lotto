@@ -10,7 +10,7 @@ import java.util.Set;
 import static pl.iseebugs.Lotto.domain.numberGenerator.WinningGenerateNumberProperties.*;
 
 @AllArgsConstructor
-class SecureRandomGenerator_HTTP implements WinningNumbersGenerable{
+class SecureRandomGenerator_HTTP implements RandomNumbersGenerable {
 
     @Override
     public SixRandomNumbersDto generateSixRandomNumbers(){

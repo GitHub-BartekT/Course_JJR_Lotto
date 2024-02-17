@@ -1,23 +1,16 @@
 package pl.iseebugs.Lotto.domain.numberGenerator;
 
-import lombok.AllArgsConstructor;
-
-import java.security.SecureRandom;
-import java.util.HashSet;
-import java.util.Random;
 import java.util.Set;
 
-import static pl.iseebugs.Lotto.domain.numberGenerator.WinningGenerateNumberProperties.*;
-
-class WinningNumbersGeneratorTestImpl implements WinningNumbersGenerable{
+class RandomNumbersGeneratorTestImpl implements RandomNumbersGenerable {
 
     private final Set<Integer> generatedNumbers;
 
-    WinningNumbersGeneratorTestImpl() {
+    RandomNumbersGeneratorTestImpl() {
         generatedNumbers = Set.of(1,2,3,4,5,6);
     }
 
-    WinningNumbersGeneratorTestImpl(Set<Integer> generatedNumbers){
+    RandomNumbersGeneratorTestImpl(Set<Integer> generatedNumbers){
         this.generatedNumbers = generatedNumbers;
     }
     @Override

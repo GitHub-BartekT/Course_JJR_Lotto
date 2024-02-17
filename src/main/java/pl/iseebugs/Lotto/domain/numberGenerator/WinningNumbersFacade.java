@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 public class WinningNumbersFacade {
 
     private final WinningNumbersRepository repository;
-    private final WinningNumbersGenerable numbersGenerator;
+    private final RandomNumbersGenerable numbersGenerator;
     private final NumberReceiverFacade receiverFacade;
     private final WinningNumberValidator numberValidator;
 
