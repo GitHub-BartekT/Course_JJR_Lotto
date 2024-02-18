@@ -26,7 +26,7 @@ public class RandomNumberGeneratorRestTemplate implements RandomNumbersGenerable
         //String urlForService = getUrlForService("/api/v1.0/random");
         HttpHeaders headers = new HttpHeaders();
         final HttpEntity<HttpHeaders> requestEntity = new HttpEntity<>(headers);
-        final String url = UriComponentsBuilder.fromHttpUrl("http://ec2-3-120-147-150.eu-central-1.compute.amazonaws.com" + ":" + "9090" + "/api/v1.0/random")
+        final String url = UriComponentsBuilder.fromHttpUrl("http://www.randomnumberapi.com" + ":" + "80" + "/api/v1.0/random")
                 .queryParam("min", 1)
                 .queryParam("max", 99)
                 .queryParam("count", 6)
@@ -45,6 +45,6 @@ public class RandomNumberGeneratorRestTemplate implements RandomNumbersGenerable
     }
 
     private String getUrlForService(String service) {
-        return "http://ec2-3-120-147-150.eu-central-1.compute.amazonaws.com" + ":" + "9090" + "/api/v1.0/random";
+        return "http://www.randomnumberapi.com" + ":" + "80" + "/api/v1.0/random";
     }
 }
