@@ -20,16 +20,18 @@ import java.util.stream.Collectors;
 public class RandomNumberGeneratorRestTemplate implements RandomNumbersGenerable {
 
     private final RestTemplate restTemplate;
+    private final String uri;
+    private final int port;
 
     @Override
     public SixRandomNumbersDto generateSixRandomNumbers() {
-        //String urlForService = getUrlForService("/api/v1.0/random");
+        String urlForService = getUrlForService("/api/v1.0/random");
         HttpHeaders headers = new HttpHeaders();
         final HttpEntity<HttpHeaders> requestEntity = new HttpEntity<>(headers);
-        final String url = UriComponentsBuilder.fromHttpUrl("http://www.randomnumberapi.com" + ":" + "80" + "/api/v1.0/random")
+        final String url = UriComponentsBuilder.fromHttpUrl(urlForService)
                 .queryParam("min", 1)
                 .queryParam("max", 99)
-                .queryParam("count", 6)
+                .queryParam("count", 25)
                 .toUriString();
         ResponseEntity<List<Integer>> response = restTemplate.exchange(
                 url,
@@ -45,6 +47,6 @@ public class RandomNumberGeneratorRestTemplate implements RandomNumbersGenerable
     }
 
     private String getUrlForService(String service) {
-        return "http://www.randomnumberapi.com" + ":" + "80" + "/api/v1.0/random";
+        return uri + ":" + port + service;
     }
 }

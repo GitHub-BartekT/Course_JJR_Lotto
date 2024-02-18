@@ -27,7 +27,9 @@ public class NumberGeneratorClientConfig {
     }
 
     @Bean
-    public RandomNumbersGenerable remoteNumberGeneratorClient(RestTemplate restTemplate){
-        return new RandomNumberGeneratorRestTemplate(restTemplate);
+    public RandomNumbersGenerable remoteNumberGeneratorClient(RestTemplate restTemplate,
+                                                              @Value("${lotto.number-generator.http.client.config.uri}") String uri,
+                                                              @Value("${lotto.number-generator.http.client.config.port}") int port){
+        return new RandomNumberGeneratorRestTemplate(restTemplate, uri, port);
     }
 }
