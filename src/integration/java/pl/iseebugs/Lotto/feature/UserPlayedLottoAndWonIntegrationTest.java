@@ -5,16 +5,16 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import pl.iseebugs.Lotto.BaseIntegrationTest;
-import pl.iseebugs.Lotto.domain.numberGenerator.RandomNumbersGenerable;
-import pl.iseebugs.Lotto.domain.numberGenerator.SixRandomNumbersDto;
+import pl.iseebugs.Lotto.domain.numberGenerator.*;
+import pl.iseebugs.Lotto.domain.numberGenerator.dto.WinningNumbersDto;
 
 public class UserPlayedLottoAndWonIntegrationTest extends BaseIntegrationTest {
 
     @Autowired
-    RandomNumbersGenerable randomNumbersGenerable;
+    WinningNumbersFacade winningNumbersFacade;
 
     @Test
-    public void should_user_win_and_system_should_generate_winners(){
+    public void should_user_win_and_system_should_generate_winners() throws OutOfRangeException, IncorrectSizeException {
         //  Step 1: external service returns 6 random numbers (1,2,3,4,5,6)
         // given
         wireMockServer.stubFor(WireMock.get("/api/v1.0/random?min=1&max=99&count=25")
@@ -25,8 +25,11 @@ public class UserPlayedLottoAndWonIntegrationTest extends BaseIntegrationTest {
                                         [1, 2, 3, 4, 5, 6, 82, 82, 83, 83, 86, 57, 10, 81, 53, 93, 50, 54, 31, 88, 15, 43, 79, 32, 43]
                                         """.trim()
                                 )));
+
+        WinningNumbersDto winningNumbersDto = winningNumbersFacade.generateWinningNumbers();
+        System.out.println(winningNumbersDto);
         // when
-        SixRandomNumbersDto sixRandomNumbersDto = randomNumbersGenerable.generateSixRandomNumbers();
+        // SixRandomNumbersDto sixRandomNumbersDto = randomNumbersGenerable.generateSixRandomNumbers();
 
         // then
         //  Step 2: system fetched winning numbers for draw date: 17.02.2024 12:00

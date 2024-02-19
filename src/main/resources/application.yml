@@ -4,6 +4,10 @@ spring:
       uri: mongodb://admin:admin@localhost:27017/lotto-web
 lotto:
   number-generator:
+    facade:
+      count: 25
+      lower-bound: 1
+      upper-bound: 99
     http:
       client:
         config:

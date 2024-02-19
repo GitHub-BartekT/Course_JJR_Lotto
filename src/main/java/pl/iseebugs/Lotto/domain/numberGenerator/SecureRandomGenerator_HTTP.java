@@ -13,11 +13,11 @@ import static pl.iseebugs.Lotto.domain.numberGenerator.WinningGenerateNumberProp
 class SecureRandomGenerator_HTTP implements RandomNumbersGenerable {
 
     @Override
-    public SixRandomNumbersDto generateSixRandomNumbers(){
+    public SixRandomNumbersDto generateSixRandomNumbers(int count, int lowerBound, int upperBound){
         Set<Integer> winningNumbers = new HashSet<>();
-        while (isAmountOfNumbersLowerThenSix(winningNumbers)){
+        while (isAmountOfNumbersLowerThenSix(winningNumbers, count)){
             Random random = new SecureRandom();
-            Integer randomNumber = random.nextInt((UPPER_BOUND - LOWER_BOUND) + 1);
+            Integer randomNumber = random.nextInt((upperBound - lowerBound) + 1);
             winningNumbers.add(randomNumber);
         }
         return SixRandomNumbersDto.builder()
@@ -25,7 +25,7 @@ class SecureRandomGenerator_HTTP implements RandomNumbersGenerable {
                 .build();
     }
 
-    private static boolean isAmountOfNumbersLowerThenSix(Set<Integer> winningNumbers) {
-        return winningNumbers.size() < NUMBER_OF_WINNING_NUMBERS;
+    private static boolean isAmountOfNumbersLowerThenSix(Set<Integer> winningNumbers, int count) {
+        return winningNumbers.size() < count;
     }
 }

@@ -14,6 +14,7 @@ import pl.iseebugs.Lotto.domain.numberGenerator.SixRandomNumbersDto;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @AllArgsConstructor
@@ -24,14 +25,14 @@ public class RandomNumberGeneratorRestTemplate implements RandomNumbersGenerable
     private final int port;
 
     @Override
-    public SixRandomNumbersDto generateSixRandomNumbers() {
+    public SixRandomNumbersDto generateSixRandomNumbers(int count, int lowerBound, int upperBound) {
         String urlForService = getUrlForService("/api/v1.0/random");
         HttpHeaders headers = new HttpHeaders();
         final HttpEntity<HttpHeaders> requestEntity = new HttpEntity<>(headers);
         final String url = UriComponentsBuilder.fromHttpUrl(urlForService)
-                .queryParam("min", 1)
-                .queryParam("max", 99)
-                .queryParam("count", 25)
+                .queryParam("min", lowerBound)
+                .queryParam("max", upperBound)
+                .queryParam("count", count)
                 .toUriString();
         ResponseEntity<List<Integer>> response = restTemplate.exchange(
                 url,
@@ -39,10 +40,10 @@ public class RandomNumberGeneratorRestTemplate implements RandomNumbersGenerable
                 requestEntity,
                 new ParameterizedTypeReference<>() {
                 });
-        List<Integer> numbers = response.getBody();
-        System.out.println(numbers);
+        Set<Integer> numbers = new HashSet<>(response.getBody());
+        Set<Integer> result = numbers.stream().limit(6).collect(Collectors.toSet());
         return SixRandomNumbersDto.builder()
-                .numbers(numbers.stream().collect(Collectors.toSet()))
+                .numbers(result)
                 .build();
     }
 

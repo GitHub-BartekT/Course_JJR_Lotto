@@ -16,10 +16,11 @@ public class WinningNumbersFacade {
     private final RandomNumbersGenerable numbersGenerator;
     private final NumberReceiverFacade receiverFacade;
     private final WinningNumberValidator numberValidator;
+    private final WinningGenerateNumberProperties properties;
 
     public WinningNumbersDto generateWinningNumbers() throws OutOfRangeException, IncorrectSizeException {
         LocalDateTime drawDate = receiverFacade.generateNextDrawDate();
-        SixRandomNumbersDto dto = numbersGenerator.generateSixRandomNumbers();
+        SixRandomNumbersDto dto = numbersGenerator.generateSixRandomNumbers(properties.count(), properties.lowerBound(), properties.upperBound());
         Set<Integer> winningNumbers = dto.numbers();
         numberValidator.validateWinningNumber(winningNumbers);
         WinningNumbers toSave = new WinningNumbers(drawDate, winningNumbers);
