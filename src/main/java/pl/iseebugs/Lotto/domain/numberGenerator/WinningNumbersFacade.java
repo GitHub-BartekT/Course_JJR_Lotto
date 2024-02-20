@@ -23,7 +23,10 @@ public class WinningNumbersFacade {
         SixRandomNumbersDto dto = numbersGenerator.generateSixRandomNumbers(properties.count(), properties.lowerBound(), properties.upperBound());
         Set<Integer> winningNumbers = dto.numbers();
         numberValidator.validateWinningNumber(winningNumbers);
-        WinningNumbers toSave = new WinningNumbers(drawDate, winningNumbers);
+        WinningNumbers toSave = WinningNumbers.builder()
+                .winningNumbers(winningNumbers)
+                .drawDate(drawDate)
+        .build();
         repository.save(toSave);
         return WinningNumbersMapper.toWinningNumbersDTO(toSave);
     }
@@ -34,7 +37,7 @@ public class WinningNumbersFacade {
     }
 
     public List<WinningNumbersDto> getAllWinningNumbers(){
-        return repository.getAllWinningNumbers().stream()
+        return repository.findAll().stream()
                 .map(WinningNumbersMapper::toWinningNumbersDTO)
                 .collect(Collectors.toList());
     }
