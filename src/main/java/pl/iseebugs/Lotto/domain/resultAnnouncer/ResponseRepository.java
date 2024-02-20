@@ -1,12 +1,10 @@
 package pl.iseebugs.Lotto.domain.resultAnnouncer;
 
+import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.stereotype.Repository;
+
 import java.util.Optional;
 
-public interface ResponseRepository {
-
-    TicketResponse save(TicketResponse ticketResponse);
-
-    Optional<TicketResponse> findById(String id);
-
-    boolean existsById(String id);
+@Repository
+public interface ResponseRepository extends MongoRepository<TicketResponse, String> {
 }
