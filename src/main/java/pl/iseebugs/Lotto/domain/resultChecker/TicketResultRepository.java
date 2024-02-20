@@ -9,5 +9,4 @@ import java.util.List;
 import java.util.Optional;
 @Repository
 public interface TicketResultRepository extends MongoRepository<TicketResult, String> {
-    List<TicketResult> saveAll(List<TicketResult> players);
 }

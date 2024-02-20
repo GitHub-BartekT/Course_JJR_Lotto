@@ -5,7 +5,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.repository.query.FluentQuery;
-import pl.iseebugs.Lotto.domain.resultChecker.dto.TicketResultDto;
 
 import java.time.LocalDateTime;
 import java.util.HashMap;
@@ -68,14 +67,22 @@ class InMemoryTicketResultRepository implements TicketResultRepository {
         return null;
     }
 
+
+
     @Override
     public <S extends TicketResult> List<S> findAll(Example<S> example, Sort sort) {
         return null;
     }
 
+
     @Override
     public <S extends TicketResult> List<S> saveAll(Iterable<S> entities) {
-        return null;
+        Map<String, TicketResult> mapToSave = new HashMap<>();
+        for (TicketResult ticket: entities) {
+            mapToSave.put(ticket.Id(),ticket);
+        }
+        inMemoryDatabase.putAll(mapToSave);
+        return (List<S>) inMemoryDatabase.values().stream().toList();
     }
 
     @Override
@@ -163,11 +170,6 @@ class InMemoryTicketResultRepository implements TicketResultRepository {
         return null;
     }
 
-    @Override
-    public List<TicketResult> saveAll(List<TicketResult> ticketsResults) {
-        ticketsResults.stream().forEach(ticketResult -> inMemoryDatabase.put(ticketResult.Id(), ticketResult));
-        return ticketsResults;
-    }
 
     @Override
     public Optional<TicketResult> findById(String id) {

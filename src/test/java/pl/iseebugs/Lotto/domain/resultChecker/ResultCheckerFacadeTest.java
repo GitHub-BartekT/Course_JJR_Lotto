@@ -7,6 +7,7 @@ import pl.iseebugs.Lotto.domain.numberGenerator.WinningNumbersFacade;
 import pl.iseebugs.Lotto.domain.numberGenerator.WinningNumbersNotFoundException;
 import pl.iseebugs.Lotto.domain.numberGenerator.dto.WinningNumbersDto;
 import pl.iseebugs.Lotto.domain.numberReceiver.NumberReceiverFacade;
+import pl.iseebugs.Lotto.domain.numberReceiver.TicketNotFoundException;
 import pl.iseebugs.Lotto.domain.numberReceiver.dto.TicketDto;
 import pl.iseebugs.Lotto.domain.resultChecker.dto.TicketResultDto;
 import pl.iseebugs.Lotto.domain.resultChecker.dto.WinningTicketsDto;
@@ -17,6 +18,7 @@ import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -121,9 +123,9 @@ class ResultCheckerFacadeTest {
     }
 
     @Test
-    public void should_generate_result_with_correct_credentials() throws OutOfRangeException, IncorrectSizeException, WinningNumbersNotFoundException, TicketResultNotFoundException {
+    public void should_generate_result_with_correct_credentials() throws OutOfRangeException, IncorrectSizeException, WinningNumbersNotFoundException, TicketResultNotFoundException, TicketNotFoundException {
         //given
-        LocalDateTime drawDate = LocalDateTime.of(2022, 12, 17, 12, 0, 0);
+        LocalDateTime drawDate = LocalDateTime.of(2024, 2, 24, 12, 0, 0);
         Set<Integer> winningNumbers = Set.of(1, 2, 3, 4, 5, 6);
         when(mockWinningNumbersFacade.generateWinningNumbers()).thenReturn(WinningNumbersDto.builder()
                 .winningNumbers(winningNumbers)

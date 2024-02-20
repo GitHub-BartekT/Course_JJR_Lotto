@@ -88,7 +88,7 @@ class InMemoryWinningNumbersRepositoryTestImpl implements WinningNumbersReposito
 
     @Override
     public List<WinningNumbers> findAll() {
-        return null;
+        return inMemoryDatabase.values().stream().toList();
     }
 
     @Override
