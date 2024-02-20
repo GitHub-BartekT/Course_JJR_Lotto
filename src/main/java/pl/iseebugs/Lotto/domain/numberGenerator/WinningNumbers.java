@@ -1,7 +1,13 @@
 package pl.iseebugs.Lotto.domain.numberGenerator;
 
+import lombok.Builder;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
 import java.time.LocalDateTime;
 import java.util.Set;
 
-record WinningNumbers(LocalDateTime drawDate, Set<Integer>winningNumbers) {
+@Builder
+@Document
+record WinningNumbers(@Id String id, LocalDateTime drawDate, Set<Integer>winningNumbers) {
 }
