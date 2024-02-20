@@ -5,7 +5,9 @@ import pl.iseebugs.Lotto.domain.numberGenerator.dto.WinningNumbersDto;
 import pl.iseebugs.Lotto.domain.numberReceiver.NumberReceiverFacade;
 
 import java.time.LocalDateTime;
+import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -37,8 +39,9 @@ public class WinningNumbersFacade {
     }
 
     public List<WinningNumbersDto> getAllWinningNumbers(){
-        return repository.findAll().stream()
+        return Optional.of(repository.findAll().stream()
                 .map(WinningNumbersMapper::toWinningNumbersDTO)
-                .collect(Collectors.toList());
+                .collect(Collectors.toList()))
+                .orElse(Collections.emptyList());
     }
 }
