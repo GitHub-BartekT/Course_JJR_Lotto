@@ -14,7 +14,7 @@ public class WinningNumberScheduler {
 
     private final WinningNumbersFacade winningNumbersFacade;
 
-    @Scheduled(cron = "*/3 * * * * *")
+    @Scheduled(cron = "${lotto.number-generator.lotteryRunOccurrence}")
     public void generateWinningNumbers() throws OutOfRangeException, IncorrectSizeException {
         winningNumbersFacade.generateWinningNumbers();
     }

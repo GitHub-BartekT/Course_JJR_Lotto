@@ -1,6 +1,7 @@
 package pl.iseebugs.Lotto.infrastructure.numberGenerator.http;
 
 import lombok.AllArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -18,6 +19,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @AllArgsConstructor
+@Log4j2
 public class RandomNumberGeneratorRestTemplate implements RandomNumbersGenerable {
 
     private final RestTemplate restTemplate;
@@ -34,6 +36,7 @@ public class RandomNumberGeneratorRestTemplate implements RandomNumbersGenerable
                 .queryParam("max", upperBound)
                 .queryParam("count", count)
                 .toUriString();
+        log.info("Http: {}", url);
         ResponseEntity<List<Integer>> response = restTemplate.exchange(
                 url,
                 HttpMethod.GET,

@@ -4,6 +4,7 @@ spring:
       uri: mongodb://admin:admin@localhost:27017/lotto-web
 lotto:
   number-generator:
+    lotteryRunOccurrence: "0 0 12 * * 6"
     facade:
       count: 25
       lower-bound: 1
