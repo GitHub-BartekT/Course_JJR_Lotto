@@ -1,22 +1,28 @@
 package pl.iseebugs.Lotto.feature;
 
 import com.github.tomakehurst.wiremock.client.WireMock;
+import lombok.extern.log4j.Log4j2;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.ResultActions;
 import pl.iseebugs.Lotto.BaseIntegrationTest;
 import pl.iseebugs.Lotto.domain.numberGenerator.*;
-import pl.iseebugs.Lotto.domain.numberGenerator.dto.WinningNumbersDto;
+import pl.iseebugs.Lotto.domain.numberReceiver.dto.InputNumberResultDto;
+
 
 import java.time.Duration;
 import java.time.LocalDateTime;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.awaitility.Awaitility.await;
+import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+@Log4j2
 public class UserPlayedLottoAndWonIntegrationTest extends BaseIntegrationTest {
 
     @Autowired
@@ -38,15 +44,17 @@ public class UserPlayedLottoAndWonIntegrationTest extends BaseIntegrationTest {
 
         //  Step 2: system fetched winning numbers for draw date: 17.02.2024 12:00
         //  given
-        LocalDateTime drawDate = LocalDateTime.of(2024,2, 24, 12, 0, 0);
+        LocalDateTime drawDate = LocalDateTime.of(2024,2, 10, 12, 0, 0);
         //  when && then
         await()
                 .atMost(Duration.ofSeconds(20))
                 .pollInterval(Duration.ofSeconds(1))
                 .until(() -> {
                     try {
+                        log.info("check option");
                         return !winningNumbersFacade.getWinningNumbersByDate(drawDate).winningNumbers().isEmpty();
                     } catch (Exception e) {
+                        log.info("false");
                         return false;
                     }
                 }
@@ -59,14 +67,22 @@ public class UserPlayedLottoAndWonIntegrationTest extends BaseIntegrationTest {
         //when
         ResultActions perform = mockMvc.perform(post("/inputNumbers")
                 .content("""
-                                {
+                                {   
                                 "inputNumbers":[1,2,3,4,5,6]
                                 }
-                                """
+                                """.trim()
                 ).contentType(MediaType.APPLICATION_JSON)
         );
         //then
-        perform.andExpect(status().isOk());
+        MvcResult mvcResult = perform.andExpect(status().isOk()).andReturn();
+        String json = mvcResult.getResponse().getContentAsString();
+        InputNumberResultDto inputNumbersRequestDto = objectMapper.readValue(json, InputNumberResultDto.class);
+        assertAll(
+                () -> assertThat(inputNumbersRequestDto.drawDate()).isEqualTo(drawDate),
+                () -> assertThat(inputNumbersRequestDto.ticketId()).isNotNull(),
+                () -> assertThat(inputNumbersRequestDto.message()).isEqualTo("success")
+        );
+
 
 
         //  Step 4: 2 days, 2 hours and 1 minute passed, and it is 1 minute after the draw date (17.02.2024 12:01)

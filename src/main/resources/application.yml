@@ -9,8 +9,8 @@ lotto:
     lotteryRunOccurrence: "0 0 12 * * 6"
     facade:
       count: 25
-      lower-bound: 1
-      upper-bound: 99
+      lowerBound: 1
+      upperBound: 99
     http:
       client:
         config:

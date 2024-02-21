@@ -45,6 +45,7 @@ public class RandomNumberGeneratorRestTemplate implements RandomNumbersGenerable
                 });
         Set<Integer> numbers = new HashSet<>(response.getBody());
         Set<Integer> result = numbers.stream().limit(6).collect(Collectors.toSet());
+        log.info("Winning numbers: {}", result);
         return SixRandomNumbersDto.builder()
                 .numbers(result)
                 .build();

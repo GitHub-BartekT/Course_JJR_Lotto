@@ -8,10 +8,13 @@
     import java.time.DayOfWeek;
     import java.time.LocalDateTime;
 
-    @AllArgsConstructor
     class GenerateDrawDate {
 
         private final Clock clock;
+
+        public GenerateDrawDate(Clock clock) {
+            this.clock = clock;
+        }
 
         LocalDateTime generateNextDrawDate(){
             LocalDateTime buyingTicketTime = LocalDateTime.now(clock);
@@ -22,7 +25,6 @@
             if(!isSaturday(dateBeforeDrawDate)){
                 return goToNextSaturdayNoon(dateBeforeDrawDate);
             }
-
             if(isBeforeNoon(dateBeforeDrawDate)) {
                 return dateBeforeDrawDate.withHour(12).withMinute(0).withSecond(0).withNano(0);
             } else {
