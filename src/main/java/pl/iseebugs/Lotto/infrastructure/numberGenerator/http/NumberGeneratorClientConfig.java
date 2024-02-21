@@ -21,8 +21,8 @@ public class NumberGeneratorClientConfig {
     public RestTemplate restTemplate(RestTemplateResponseErrorHandler restTemplateResponseErrorHandler){
         return new RestTemplateBuilder()
                 .errorHandler(restTemplateResponseErrorHandler)
-                .setConnectTimeout(Duration.ofMillis(1000))
-                .setReadTimeout(Duration.ofMillis(1000))
+                .setConnectTimeout(Duration.ofMillis(5000))
+                .setReadTimeout(Duration.ofMillis(5000))
                 .build();
     }
 

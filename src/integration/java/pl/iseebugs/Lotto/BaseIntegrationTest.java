@@ -17,7 +17,7 @@ import org.testcontainers.utility.DockerImageName;
 
 import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.wireMockConfig;
 
-@SpringBootTest(classes = LottoApplication.class)
+@SpringBootTest(classes = {LottoApplication.class, IntegrationConfiguration.class})
 @ActiveProfiles("integration")
 @AutoConfigureMockMvc
 @Testcontainers
@@ -32,6 +32,9 @@ public class BaseIntegrationTest {
 
     @Autowired
     public ObjectMapper objectMapper;
+
+    @Autowired
+    public pl.lotto.domain.AdjustableClock clock;
 
     @RegisterExtension
     public static WireMockExtension wireMockServer = WireMockExtension.newInstance()
