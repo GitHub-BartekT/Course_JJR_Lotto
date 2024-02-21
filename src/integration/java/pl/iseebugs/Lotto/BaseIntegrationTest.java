@@ -34,9 +34,6 @@ public class BaseIntegrationTest {
     @Autowired
     public ObjectMapper objectMapper;
 
-    @Autowired
-    public pl.lotto.domain.AdjustableClock clock;
-
     @RegisterExtension
     public static WireMockExtension wireMockServer = WireMockExtension.newInstance()
             .options(wireMockConfig().dynamicPort())
@@ -48,5 +45,11 @@ public class BaseIntegrationTest {
         registry.add("lotto.number-generator.http.client.config.port", () -> wireMockServer.getPort());
         registry.add("lotto.number-generator.http.client.config.uri", () -> WIRE_MOCK_HOST);
 
+    }
+
+    @DynamicPropertySource
+    public static void overrideMongoDBProperties(DynamicPropertyRegistry registry) {
+        registry.add("spring.data.mongodb.connection-pool.max-idle-time", () -> "60000");
+        registry.add("spring.data.mongodb.connection-pool.max-wait-time", () -> "5000");
     }
 }
