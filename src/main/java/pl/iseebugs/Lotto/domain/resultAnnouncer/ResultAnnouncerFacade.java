@@ -9,6 +9,8 @@ import pl.iseebugs.Lotto.domain.resultChecker.TicketResultNotFoundException;
 import java.time.Clock;
 import java.time.LocalDateTime;
 
+import static pl.iseebugs.Lotto.domain.resultAnnouncer.ResponseMessage.BAD_ID;
+
 @AllArgsConstructor
 public class ResultAnnouncerFacade {
 
@@ -22,12 +24,9 @@ public class ResultAnnouncerFacade {
             resultResponseDto = ResponseMapper.toTicketResultDtoFromTicketResponse(
                     responseRepository.findById(ticketId)
                             .orElseThrow(ResultResponseNotFoundException::new));
-        } else if (responseRepository.existsById(ticketId)){
+        } else {
             resultResponseDto = ResponseMapper.toTicketResultDto(
                             resultCheckerFacade.findTicketById(ticketId));
-        } else {
-            return ResponseMapper.resultAnnouncerResponseDto(
-                    null, ResponseMessage.BAD_ID);
         }
 
 

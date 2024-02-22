@@ -30,9 +30,14 @@ class ResponseMapper {
 
     static ResultResponseDto resultAnnouncerResponseDto(TicketResultResponseDto ticketResultResponseDto,
                                                         ResponseMessage responseMessage){
+        return resultAnnouncerResponseDto(ticketResultResponseDto, responseMessage, "");
+    }
+
+    static ResultResponseDto resultAnnouncerResponseDto(TicketResultResponseDto ticketResultResponseDto,
+                                                        ResponseMessage responseMessage, String ticketId){
         return ResultResponseDto.builder()
                 .ticketResult(ticketResultResponseDto)
-                .message(responseMessage.message)
+                .message(responseMessage.message + ticketId)
                 .build();
     }
 }

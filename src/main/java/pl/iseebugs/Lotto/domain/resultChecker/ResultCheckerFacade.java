@@ -48,7 +48,7 @@ public class ResultCheckerFacade {
 
     public TicketResultDto findTicketById(String id) throws TicketResultNotFoundException {
         TicketResult resultDto =
-                ticketResultRepository.findById(id).orElseThrow(TicketResultNotFoundException::new);
+                ticketResultRepository.findById(id).orElseThrow(() -> new TicketResultNotFoundException(id));
         return ResultCheckerMapper.toTicketResultDto(resultDto);
     }
 }

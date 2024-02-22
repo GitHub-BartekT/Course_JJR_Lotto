@@ -16,7 +16,7 @@ public class IntegrationConfiguration {
 
     @Bean
     @Primary
-    pl.lotto.domain.AdjustableClock clock() {
+    pl.lotto.domain.AdjustableClock adjustableClock() {
         return pl.lotto.domain.AdjustableClock.ofLocalDateAndLocalTime(LocalDate.of(2024,2,9), LocalTime.of(10,0), ZoneId.systemDefault());
     }
 }
