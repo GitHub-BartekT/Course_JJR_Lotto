@@ -1,5 +1,6 @@
 package pl.iseebugs.Lotto.infrastructure.numberReceiver.controller;
 
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +25,7 @@ public class InputNumbersRestController {
     private final NumberReceiverFacade numberReceiverFacade;
 
     @PostMapping("/inputNumbers")
-    public ResponseEntity<InputNumberResultDto> inputNumbers(@RequestBody InputNumbersRequestDto requestDto){
+    public ResponseEntity<InputNumberResultDto> inputNumbers(@RequestBody @Valid InputNumbersRequestDto requestDto){
         log.info(requestDto.inputNumbers());
         Set<Integer> request = new HashSet<>(requestDto.inputNumbers());
         InputNumberResultDto response = numberReceiverFacade.inputNumbers(request);
