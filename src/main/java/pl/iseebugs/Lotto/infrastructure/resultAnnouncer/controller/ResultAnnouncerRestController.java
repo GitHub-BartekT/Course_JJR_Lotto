@@ -21,9 +21,4 @@ public class ResultAnnouncerRestController {
         ResultResponseDto result = resultAnnouncerFacade.resultResponse(id);
         return ResponseEntity.ok(result);
     }
-
-    @ExceptionHandler(TicketResultNotFoundException.class)
-    ResponseEntity<String> handlerIllegalArgument(TicketResultNotFoundException e){
-        return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);    }
-
 }
