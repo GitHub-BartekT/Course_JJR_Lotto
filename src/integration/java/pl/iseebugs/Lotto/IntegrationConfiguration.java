@@ -5,10 +5,10 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.context.annotation.Profile;
 
-import java.time.Clock;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.ZoneId;
+import pl.lotto.domain.AdjustableClock;
 
 @Configuration
 @Profile("integration")
@@ -16,7 +16,7 @@ public class IntegrationConfiguration {
 
     @Bean
     @Primary
-    pl.lotto.domain.AdjustableClock adjustableClock() {
-        return pl.lotto.domain.AdjustableClock.ofLocalDateAndLocalTime(LocalDate.of(2024,2,9), LocalTime.of(10,0), ZoneId.systemDefault());
+    AdjustableClock clock() {
+        return AdjustableClock.ofLocalDateAndLocalTime(LocalDate.of(2022,11,16), LocalTime.of(10,0), ZoneId.systemDefault());
     }
 }
