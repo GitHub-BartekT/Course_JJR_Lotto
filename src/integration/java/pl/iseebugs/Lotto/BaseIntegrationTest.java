@@ -28,6 +28,9 @@ public class BaseIntegrationTest {
     @Autowired
     public MockMvc mockMvc;
 
+    @Autowired
+    public pl.lotto.domain.AdjustableClock clock;
+
     @Container
     public static final MongoDBContainer mongoDBContainer = new MongoDBContainer(DockerImageName.parse("mongo:6.0.2"));
 
