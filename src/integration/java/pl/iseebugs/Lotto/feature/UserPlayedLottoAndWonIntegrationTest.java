@@ -119,6 +119,11 @@ public class UserPlayedLottoAndWonIntegrationTest extends BaseIntegrationTest {
         //  Step 6: system generated result for TicketId: sampleTicketId with draw date 19.11.2022 12:00,
         //        and saved it with 6 hits
         //  Step 7: 6 minutes passed and it is 1 minute after the draw (19.11.2022 12:01)
+
+
+        clock.plusMinutes(6);
+
+
         //  Step 8: user made GET/results/sampleTicketId and system returned 200(OK)
     }
 }
