@@ -27,6 +27,11 @@ class InMemoryWinningNumbersRepositoryTestImpl implements WinningNumbersReposito
     }
 
     @Override
+    public boolean existsByDrawDate(LocalDateTime dateTime) {
+        return false;
+    }
+
+    @Override
     public <S extends WinningNumbers> S insert(S entity) {
         return null;
     }

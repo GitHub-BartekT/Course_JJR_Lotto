@@ -9,5 +9,5 @@ import java.util.Set;
 
 @Builder
 @Document
-record WinningNumbers(@Id String id, LocalDateTime drawDate, Set<Integer>winningNumbers) {
+record WinningNumbers(String id, LocalDateTime drawDate, Set<Integer>winningNumbers) {
 }

@@ -116,7 +116,7 @@ public class InMemoryResponseRepositoryTestImpl implements ResponseRepository{
 
     @Override
     public <S extends TicketResponse> S save(S entity) {
-        inMemoryResponseRepository.put(entity.Id(), entity);
+        inMemoryResponseRepository.put(entity.id(), entity);
         return entity;
     }
 

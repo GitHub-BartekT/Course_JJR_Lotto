@@ -1,6 +1,7 @@
 package pl.iseebugs.Lotto.domain.resultAnnouncer;
 
 import lombok.AllArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import pl.iseebugs.Lotto.domain.resultAnnouncer.dto.ResultResponseDto;
 import pl.iseebugs.Lotto.domain.resultAnnouncer.dto.TicketResultResponseDto;
 import pl.iseebugs.Lotto.domain.resultChecker.ResultCheckerFacade;
@@ -12,6 +13,7 @@ import java.time.LocalDateTime;
 import static pl.iseebugs.Lotto.domain.resultAnnouncer.ResponseMessage.BAD_ID;
 
 @AllArgsConstructor
+@Log4j2
 public class ResultAnnouncerFacade {
 
     private final ResponseRepository responseRepository;
@@ -21,14 +23,15 @@ public class ResultAnnouncerFacade {
     public ResultResponseDto resultResponse(String ticketId) throws TicketResultNotFoundException, ResultResponseNotFoundException {
         TicketResultResponseDto resultResponseDto;
         if(responseRepository.existsById(ticketId)){
+            log.info("You found ticket in ResponseRepository with id: {}", ticketId);
             resultResponseDto = ResponseMapper.toTicketResultDtoFromTicketResponse(
                     responseRepository.findById(ticketId)
                             .orElseThrow(ResultResponseNotFoundException::new));
         } else {
+            log.info("You are looking for ticket in ResultChecker with id: {}", ticketId);
             resultResponseDto = ResponseMapper.toTicketResultDto(
                             resultCheckerFacade.findTicketById(ticketId));
         }
-
 
         if(!isAfterDraw(resultResponseDto)){
             return ResponseMapper.resultAnnouncerResponseDto(

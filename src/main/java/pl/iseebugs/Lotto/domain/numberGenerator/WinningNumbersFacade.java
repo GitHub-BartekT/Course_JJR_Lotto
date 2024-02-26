@@ -18,12 +18,12 @@ public class WinningNumbersFacade {
 
     private final WinningNumbersRepository repository;
     private final RandomNumbersGenerable numbersGenerator;
-    private final NumberReceiverFacade receiverFacade;
+    private final NumberReceiverFacade numberReceiverFacade;
     private final WinningNumberValidator numberValidator;
     private final WinningGenerateNumberProperties properties;
 
     public WinningNumbersDto generateWinningNumbers() throws OutOfRangeException, IncorrectSizeException {
-        LocalDateTime drawDate = receiverFacade.generateNextDrawDate();
+        LocalDateTime drawDate = numberReceiverFacade.generateNextDrawDate();
         log.info("Draw date: {}", drawDate);
         SixRandomNumbersDto dto = numbersGenerator.generateSixRandomNumbers(properties.count(), properties.lowerBound(), properties.upperBound());
         Set<Integer> winningNumbers = dto.numbers();
@@ -47,5 +47,10 @@ public class WinningNumbersFacade {
                 .map(WinningNumbersMapper::toWinningNumbersDTO)
                 .collect(Collectors.toList()))
                 .orElse(Collections.emptyList());
+    }
+
+    public boolean areWinningNumbersGeneratedByDate(){
+        LocalDateTime nextDrawDate = numberReceiverFacade.generateNextDrawDate();
+        return repository.existsByDrawDate(nextDrawDate);
     }
 }

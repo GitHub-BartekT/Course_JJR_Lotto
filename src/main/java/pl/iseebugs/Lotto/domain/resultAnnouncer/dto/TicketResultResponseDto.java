@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
 import java.util.Set;
 
 @Builder
-public record TicketResultResponseDto(String Id,
+public record TicketResultResponseDto(String id,
                                       Set<Integer> numbers,
                                       Set<Integer> hitNumbers,
                                       LocalDateTime drawDate,

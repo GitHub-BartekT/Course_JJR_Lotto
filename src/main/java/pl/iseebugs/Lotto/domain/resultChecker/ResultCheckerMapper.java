@@ -10,7 +10,7 @@ class ResultCheckerMapper {
     static TicketResultDto toTicketResultDto(TicketResult ticketResult){
         return TicketResultDto
                         .builder()
-                        .Id(ticketResult.Id())
+                        .id(ticketResult.id())
                         .numbers(ticketResult.numbers())
                         .hitNumbers(ticketResult.hitNumbers())
                         .drawDate(ticketResult.drawDate())

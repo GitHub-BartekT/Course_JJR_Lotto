@@ -1,6 +1,7 @@
 package pl.iseebugs.Lotto.domain.numberReceiver;
 
 import lombok.AllArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import pl.iseebugs.Lotto.domain.numberReceiver.dto.InputNumberResultDto;
@@ -12,6 +13,7 @@ import java.util.List;
 import java.util.Set;
 
 @AllArgsConstructor
+@Log4j2
 public class NumberReceiverFacade {
 
     private static final Logger logger = LoggerFactory.getLogger(NumberReceiverFacade.class);
@@ -25,8 +27,9 @@ public class NumberReceiverFacade {
         if (validator.filterAllNumbersInTheRange(numbersFromUser)) {
             String ticketId = idGenerator.getRandomId();
             LocalDateTime drawDate = generateDrawDate.generateNextDrawDate();
-            logger.info("draw Date: {}", drawDate);
             Ticket savedTicket = repository.save(new Ticket(ticketId, drawDate, numbersFromUser));
+            logger.info("Saved ticket with, draw Date: {}, id: {}", savedTicket.drawDate(), savedTicket.ticketId());
+
             return InputNumberResultDto.builder()
                     .drawDate(savedTicket.drawDate())
                     .ticketId(savedTicket.ticketId())
@@ -40,12 +43,15 @@ public class NumberReceiverFacade {
     }
 
     public List<TicketDto> getTicketsByNextDrawDate(){
-        LocalDateTime nextDrawDate = generateDrawDate.generateNextDrawDate();
+       LocalDateTime nextDrawDate = generateDrawDate.generateNextDrawDate();
+        log.info("generated nexDrawDate: {}", nextDrawDate);
         return getTicketsByNextDrawDate(nextDrawDate);
     }
 
     public List<TicketDto> getTicketsByNextDrawDate(LocalDateTime dateBeforeDraw){
         LocalDateTime drawDate = generateDrawDate.generateNextDrawDateByDate(dateBeforeDraw);
+        log.info("generated nexDrawDate: {}", drawDate);
+        log.info("generated dateBeforeDraw: {}", dateBeforeDraw);
         List<Ticket> allTicketsByDrawDate = repository.findAllTicketsByDrawDate(drawDate);
         return allTicketsByDrawDate.stream()
                 .map(TicketMapper::toTicketDto)

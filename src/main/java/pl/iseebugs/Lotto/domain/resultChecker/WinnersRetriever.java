@@ -23,7 +23,7 @@ class WinnersRetriever {
             }
             boolean isWinner = hitNumbers.size() >= NUMBERS_WHEN_PLAYER_WON;
             resultList.add(TicketResult.builder()
-                            .Id(ticket.ticketId())
+                            .id(ticket.ticketId())
                             .drawDate(ticket.drawDate())
                             .numbers(ticket.numbers())
                             .hitNumbers(hitNumbers)

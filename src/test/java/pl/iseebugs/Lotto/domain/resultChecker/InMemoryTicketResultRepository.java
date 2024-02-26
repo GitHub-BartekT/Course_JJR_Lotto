@@ -79,7 +79,7 @@ class InMemoryTicketResultRepository implements TicketResultRepository {
     public <S extends TicketResult> List<S> saveAll(Iterable<S> entities) {
         Map<String, TicketResult> mapToSave = new HashMap<>();
         for (TicketResult ticket: entities) {
-            mapToSave.put(ticket.Id(),ticket);
+            mapToSave.put(ticket.id(),ticket);
         }
         inMemoryDatabase.putAll(mapToSave);
         return (List<S>) inMemoryDatabase.values().stream().toList();
