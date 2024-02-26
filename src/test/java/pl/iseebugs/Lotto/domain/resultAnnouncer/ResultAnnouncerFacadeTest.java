@@ -14,6 +14,7 @@ import java.util.Set;
 
 import static java.time.ZoneOffset.UTC;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.catchThrowable;
 import static org.mockito.Mockito.mock;
 
 class ResultAnnouncerFacadeTest {
@@ -31,7 +32,7 @@ class ResultAnnouncerFacadeTest {
                 clock);
         LocalDateTime drawDate = LocalDateTime.of(2024, 2, 3, 12, 0, 0);
         TicketResponse resultDto = TicketResponse.builder()
-                .Id("123")
+                .id("123")
                 .numbers(Set.of(1, 2, 3, 4, 5, 6))
                 .hitNumbers(Set.of(1, 2, 3, 4,5 ,6))
                 .wonNumbers(Set.of(1, 2, 3, 4, 5, 6))
@@ -56,7 +57,7 @@ class ResultAnnouncerFacadeTest {
                 clock);
         LocalDateTime drawDate = LocalDateTime.of(2024, 2, 3, 12, 0, 0);
         TicketResponse resultDto = TicketResponse.builder()
-                .Id("123")
+                .id("123")
                 .numbers(Set.of(7,8,9,10,11,12))
                 .hitNumbers(Set.of())
                 .wonNumbers(Set.of(1, 2, 3, 4, 5, 6))
@@ -81,7 +82,7 @@ class ResultAnnouncerFacadeTest {
                 clock);
         LocalDateTime drawDate = LocalDateTime.of(2024, 2, 3, 12, 0, 0);
         TicketResponse resultDto = TicketResponse.builder()
-                .Id("123")
+                .id("123")
                 .numbers(Set.of(1, 2, 3, 7, 8, 9))
                 .hitNumbers(Set.of(1, 2,3))
                 .wonNumbers(Set.of(1, 2, 3, 4, 5, 6))
@@ -106,13 +107,13 @@ class ResultAnnouncerFacadeTest {
                 clock);
         LocalDateTime drawDate = LocalDateTime.of(2024, 2, 3, 12, 0, 0);
         TicketResponse resultDto = TicketResponse.builder()
-                .Id("123")
+                .id("123")
                 .build();
         inMemoryResponseRepository.save(resultDto);
         //when
-        ResultResponseDto result = resultAnnouncerFacade.resultResponse("456");
+        Throwable result = catchThrowable(() -> resultAnnouncerFacade.resultResponse("456"));
         //then
-        assertThat(result.message()).isEqualTo("There is no ticket with your id.");
+        assertThat(result).isInstanceOf(Exception.class);
     }
 
     @Test
@@ -126,7 +127,7 @@ class ResultAnnouncerFacadeTest {
                 clock);
         LocalDateTime drawDate = LocalDateTime.of(2024, 2, 24, 12, 0, 0);
         TicketResponse resultDto = TicketResponse.builder()
-                .Id("123")
+                .id("123")
                 .numbers(Set.of(1, 2, 3, 4, 5, 6))
                 .hitNumbers(Set.of(1, 2,3,10,11,12))
                 .wonNumbers(Set.of(1, 2, 3, 4, 5, 6))

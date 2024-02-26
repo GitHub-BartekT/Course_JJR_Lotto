@@ -10,8 +10,7 @@ import java.util.Set;
 @Builder
 @Document
 record TicketResponse(
-        @Id
-        String Id,
+        String id,
         Set<Integer> numbers,
         Set<Integer> hitNumbers,
         LocalDateTime drawDate,

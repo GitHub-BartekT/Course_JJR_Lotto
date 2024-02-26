@@ -8,7 +8,7 @@ import pl.iseebugs.Lotto.domain.resultChecker.dto.TicketResultDto;
 class ResponseMapper {
     static TicketResultResponseDto toTicketResultDtoFromTicketResponse(TicketResponse ticketResponse){
         return TicketResultResponseDto.builder()
-                .Id(ticketResponse.Id())
+                .id(ticketResponse.id())
                 .numbers(ticketResponse.numbers())
                 .hitNumbers(ticketResponse.hitNumbers())
                 .drawDate(ticketResponse.drawDate())
@@ -19,7 +19,7 @@ class ResponseMapper {
 
     static TicketResultResponseDto toTicketResultDto(TicketResultDto ticketResponse){
         return TicketResultResponseDto.builder()
-                .Id(ticketResponse.Id())
+                .id(ticketResponse.id())
                 .numbers(ticketResponse.numbers())
                 .hitNumbers(ticketResponse.hitNumbers())
                 .drawDate(ticketResponse.drawDate())

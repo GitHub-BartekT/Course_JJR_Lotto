@@ -1,6 +1,7 @@
 package pl.iseebugs.Lotto.domain.resultChecker;
 
 import lombok.AllArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import pl.iseebugs.Lotto.domain.numberGenerator.IncorrectSizeException;
 import pl.iseebugs.Lotto.domain.numberGenerator.OutOfRangeException;
 import pl.iseebugs.Lotto.domain.numberGenerator.WinningNumbersFacade;
@@ -17,6 +18,7 @@ import java.util.List;
 import java.util.Set;
 
 @AllArgsConstructor
+@Log4j2
 public class ResultCheckerFacade {
 
     NumberReceiverFacade numberReceiverFacade;
@@ -25,7 +27,9 @@ public class ResultCheckerFacade {
     WinnersRetriever winnersRetriever;
 
     public WinningTicketsDto  generateResults() throws OutOfRangeException, IncorrectSizeException, WinningNumbersNotFoundException {
+        log.info("generated Results()");
         List<TicketDto> allTicketsByDate = numberReceiverFacade.getTicketsByNextDrawDate();
+        log.info("generated Results(), after taking tickets");
         List<Ticket> resultDtoList = ResultCheckerMapper.toTicket(allTicketsByDate);
         WinningNumbersDto winningNumbersDto = winningNumbersFacade.generateWinningNumbers();
         Set<Integer> winningNumbers = winningNumbersDto.winningNumbers();
@@ -40,6 +44,7 @@ public class ResultCheckerFacade {
         ticketResultRepository.saveAll(ticketsResult);
         List<TicketResultDto> result = ticketsResult.stream()
                 .map(ResultCheckerMapper::toTicketResultDto).toList();
+        log.info("Saved tickets: {}", result.size());
         return WinningTicketsDto.builder()
                 .results(result)
                 .message("Winners succeeded to retrieve")

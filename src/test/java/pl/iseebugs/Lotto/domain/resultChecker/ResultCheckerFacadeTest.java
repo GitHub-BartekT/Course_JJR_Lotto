@@ -60,7 +60,7 @@ class ResultCheckerFacadeTest {
         //then
         List<TicketResultDto> results = playersDto.results();
         TicketResultDto resultDto = TicketResultDto.builder()
-                .Id("001")
+                .id("001")
                 .numbers(Set.of(1, 2, 3, 4, 5, 6))
                 .hitNumbers(Set.of(1, 2, 3, 4, 5, 6))
                 .drawDate(drawDate)
@@ -68,7 +68,7 @@ class ResultCheckerFacadeTest {
                 .wonNumbers(Set.of(1, 2, 3, 4, 5, 6))
                 .build();
         TicketResultDto resultDto1 = TicketResultDto.builder()
-                .Id("001")
+                .id("001")
                 .numbers(Set.of(1, 2, 3, 4, 5, 6))
                 .hitNumbers(Set.of(1, 2, 3, 4, 5, 6))
                 .wonNumbers(Set.of(1, 2, 3, 4, 5, 6))
@@ -76,7 +76,7 @@ class ResultCheckerFacadeTest {
                 .isWinner(true)
                 .build();
         TicketResultDto resultDto2 = TicketResultDto.builder()
-                .Id("001")
+                .id("001")
                 .numbers(Set.of(1, 2, 3, 4, 5, 6))
                 .hitNumbers(Set.of(1, 2, 3, 4, 5, 6))
                 .wonNumbers(Set.of(1, 2, 3, 4, 5, 6))
@@ -158,7 +158,7 @@ class ResultCheckerFacadeTest {
         TicketResultDto resultDto = resultCheckerFacade.findTicketById(hash);
         //then
         TicketResultDto expectedResult = TicketResultDto.builder()
-                .Id(hash)
+                .id(hash)
                 .numbers(Set.of(7, 8, 9, 10, 11, 12))
                 .hitNumbers(Set.of())
                 .drawDate(drawDate)
