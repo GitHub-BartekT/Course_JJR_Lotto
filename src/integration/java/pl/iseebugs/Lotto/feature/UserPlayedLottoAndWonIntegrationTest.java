@@ -11,6 +11,8 @@ import org.springframework.test.web.servlet.ResultActions;
 import pl.iseebugs.Lotto.BaseIntegrationTest;
 import pl.iseebugs.Lotto.domain.numberGenerator.*;
 import pl.iseebugs.Lotto.domain.numberReceiver.dto.InputNumberResultDto;
+import pl.iseebugs.Lotto.domain.resultAnnouncer.dto.ResultResponseDto;
+import pl.iseebugs.Lotto.domain.resultAnnouncer.dto.TicketResultResponseDto;
 import pl.iseebugs.Lotto.domain.resultChecker.ResultCheckerFacade;
 import pl.iseebugs.Lotto.domain.resultChecker.TicketResultNotFoundException;
 import pl.iseebugs.Lotto.domain.resultChecker.dto.TicketResultDto;
@@ -19,6 +21,7 @@ import pl.iseebugs.Lotto.domain.resultChecker.dto.WinningTicketsDto;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -40,6 +43,7 @@ public class UserPlayedLottoAndWonIntegrationTest extends BaseIntegrationTest {
 
     @Test
     public void should_user_win_and_system_should_generate_winners() throws Exception {
+        clock.plusMinutes(60);
         //  Step 1: external service returns 6 random numbers (1,2,3,4,5,6)
 
 
@@ -136,10 +140,24 @@ public class UserPlayedLottoAndWonIntegrationTest extends BaseIntegrationTest {
 
         //  Step 7: 6 minutes passed and it is 1 minute after the draw (19.11.2022 12:01)
         // given && when && then
-
-        clock.plusMinutes(6);
+        clock.plusDaysAndMinutes(0,6);
 
 
         //  Step 8: user made GET/results/sampleTicketId and system returned 200(OK)
+        // when
+        String url = "/results/" + ticketId;
+        ResultActions performGetResultsWithExistingId = mockMvc.perform(get(url));
+
+        // then
+        MvcResult mvcResultGetMethod = performGetResultsWithExistingId.andExpect(status().isOk()).andReturn();
+        String jsonGetMethod = mvcResultGetMethod.getResponse().getContentAsString();
+        ResultResponseDto resultResponseDto = objectMapper.readValue(jsonGetMethod, ResultResponseDto.class);
+        Set<Integer> hitNumbers = resultResponseDto.ticketResult().hitNumbers();
+        assertAll(
+                ()-> assertThat(resultResponseDto.message()).isEqualTo("Congratulation, you won!"),
+                ()-> assertThat(resultResponseDto.ticketResult().id()).isEqualTo(ticketId)
+        );
+
+
     }
 }
