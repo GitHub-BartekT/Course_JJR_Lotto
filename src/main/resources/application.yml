@@ -11,10 +11,12 @@ lotto:
       count: 25
       lowerBound: 1
       upperBound: 99
-  result-checker:
-    lotteryRunOccurrence: "0 55 11 * * 6"
     http:
       client:
         config:
           uri: http://www.randomnumberapi.com
           port: 80
+          connectionTimeout: 10000
+          readTimeout: 10000
+  result-checker:
+    lotteryRunOccurrence: "0 55 11 * * 6"
