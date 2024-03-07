@@ -1,4 +1,4 @@
-# Job Offers
+# Lotto
 Program simulate a lottery game.
 
 ## How it looks
